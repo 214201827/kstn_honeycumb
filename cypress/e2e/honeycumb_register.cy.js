@@ -9,7 +9,7 @@ describe('template spec', () => {
 
 describe('Login Test', () => {
   it('should login successfully with valid credentials', () => {
-    cy.visit('http://127.0.0.1:3333/login.html'); // Navega a la página de login
+    cy.visit('http://127.0.0.1:3333/register.html'); // Navega a la página de login
     cy.get('input[name="email"]').type('validUser'); // Ingresa el nombre de usuario
     cy.get('input[name="password"]').type('validPassword'); // Ingresa la contraseña
     cy.get('button[name="submit"]').click(); // Hace clic en el botón de login
@@ -20,7 +20,7 @@ describe('Login Test', () => {
 // Login fallido (credenciales incorrectas)
 
 it('should show error with invalid credentials', () => {
-  cy.visit('http://127.0.0.1:3333/login.html');
+  cy.visit('http://127.0.0.1:3333/register.html');
   cy.get('input[name="email"]').type('invalidUser');
   cy.get('input[name="password"]').type('invalidPassword');
   cy.get('button[name="submit"]').click();
@@ -31,7 +31,7 @@ it('should show error with invalid credentials', () => {
 // Campos obligatorios
 
 it('should require both username and password', () => {
-  cy.visit('http://127.0.0.1:3333/login.html');
+  cy.visit('http://127.0.0.1:3333/register.html');
   cy.get('button[name="submit"]').click(); // Intenta iniciar sesión sin ingresar credenciales
   cy.get('.error-message').should('contain', 'Campo requerido'); // Verifica mensajes de error
 });
@@ -39,7 +39,7 @@ it('should require both username and password', () => {
 // Bloqueo de cuenta después de intentos fallidos
 
 it('should block account after several failed attempts', () => {
-  cy.visit('http://127.0.0.1:3333/login.html');
+  cy.visit('http://127.0.0.1:3333/register.html');
   for (let i = 0; i < 5; i++) {
     cy.get('input[name="email"]').type('validUser');
     cy.get('input[name="password"]').type('wrongPassword');
@@ -53,7 +53,7 @@ it('should block account after several failed attempts', () => {
 
 
 it('should not allow SQL Injection', () => {
-  cy.visit('http://127.0.0.1:3333/login.html');
+  cy.visit('http://127.0.0.1:3333/register.html');
   cy.get('input[name="email"]').type("admin' OR 1=1 --");
   cy.get('input[name="password"]').type('anyPassword');
   cy.get('button[name="submit"]').click();
@@ -63,7 +63,7 @@ it('should not allow SQL Injection', () => {
 // Fuerza bruta
 
 /*it('should prevent brute force attacks', () => {
-  cy.visit('http://127.0.0.1:3333/login.html');
+  cy.visit('http://127.0.0.1:3333/register.html');
   for (let i = 0; i < 100; i++) {  // Intentar múltiples veces
     cy.get('input[name="email"]').type('validUser');
     cy.get('input[name="password"]').type(`invalidPassword${i}`);
@@ -75,7 +75,7 @@ it('should not allow SQL Injection', () => {
 // Mensajes de error claros
 
 it('should display a user-friendly error message', () => {
-  cy.visit('http://127.0.0.1:3333/login.html');
+  cy.visit('http://127.0.0.1:3333/register.html');
   cy.get('input[name="email"]').type('invalidUser');
   cy.get('input[name="password"]').type('invalidPassword');
   cy.get('button[name="submit"]').click();
@@ -86,7 +86,7 @@ it('should display a user-friendly error message', () => {
 // Recuperación de contraseña
 
 it('should allow password recovery', () => {
-  cy.visit('http://127.0.0.1:3333/login.html');
+  cy.visit('http://127.0.0.1:3333/register.html');
   cy.get('a[href="/forgot-password"]').click(); // Hace clic en el enlace de recuperación
   cy.url().should('include', '/forgot-password');
   cy.get('input[name="email"]').type('user@example.com');
