@@ -51,17 +51,17 @@
 
                                     <div class="text-center"> <h4>Crear cuenta de administrador</h4></div>
         
-                                <form class="mt-5 mb-5 login-input">
+                                <form id="registroForm" class="mt-5 mb-5 login-input">
                                     <div class="form-group">
-                                        <input type="text" class="form-control"  placeholder="Nombre" required>
+                                        <input type="text" class="form-control"  id="nombre" placeholder="Nombre" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="email" class="form-control"  placeholder="Email" required>
+                                        <input type="email" class="form-control" id="email" placeholder="Email" required>
                                     </div>
                                     <div class="form-group">
-                                        <input type="password" class="form-control" placeholder="Contraseña" required>
+                                        <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
                                     </div>
-                                    <button class="btn login-form__btn submit w-100">Registrarse</button>
+                                    <button class="btn login-form__btn submit w-100" type="submit">Registrarse</button>
                                     <hr>
                                     <div class="row justify-content-center h-100">
                                         <button href="javascript:void()" class="btn gradient-4 btn-lg border-0 btn-rounded px-5" onlick="alert('Iniciaste con Google.')">Iniciar con Google</>
@@ -89,6 +89,7 @@
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
+    <script src="../node/registro.js"></script>
 </body>
 </html>
 
