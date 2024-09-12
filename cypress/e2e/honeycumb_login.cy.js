@@ -110,3 +110,23 @@ it('should respond in a reasonable time', () => {
 
 
 
+// Login fallido
+
+describe('Prueba de Login', () => {
+  beforeEach(() => {
+    // Navega a la página de login antes de cada prueba
+    cy.visit('https://tu-aplicacion.com/login'); // Cambia esta URL a la de tu aplicación
+  });
+
+  it('debería mostrar un mensaje de error si el login falla', () => {
+    // Intenta iniciar sesión con credenciales incorrectas
+    cy.get('input[name="username"]').type('usuario_incorrecto'); // Cambia el selector y el valor según tu aplicación
+    cy.get('input[name="password"]').type('contraseña_incorrecta'); // Cambia el selector y el valor según tu aplicación
+    cy.get('button[type="submit"]').click(); // Cambia el selector del botón según tu aplicación
+
+    // Verifica si se muestra un mensaje de error
+    cy.get('.error-message') // Cambia el selector según cómo tu aplicación muestra los errores
+      .should('be.visible')
+      .and('contain.text', 'Credenciales incorrectas'); // Cambia el texto del mensaje según lo que tu aplicación muestra
+  });
+});
