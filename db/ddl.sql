@@ -16,3 +16,17 @@ CREATE TABLE usuarios (
     courseId INT UNSIGNED,
     sessionId INT UNSIGNED
 );
+
+-- Crear tabla de sesiones
+
+CREATE TABLE sessions (
+    sessionId INT UNSIGNED NOT_NULL AUTO_INCREMENT PRIMARY KEY UNIQUE,
+    dateStart DATETIME,
+    dateExpiration DATETIME,
+    token VARCHAR(256),
+    userIpAddress CHAR(16),
+    userAgent TEXT  
+);
+
+-- Crear relación usuario-sesion
+
