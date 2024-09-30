@@ -13,6 +13,19 @@ CREATE TABLE `courses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
+-- honeycumb.registroAuditoria definition
+
+CREATE TABLE `registroAuditoria` (
+  `auditoriaId` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tipoMovimiento` enum('DELETE','UPDATE') NOT NULL,
+  `nombreUsuario` varchar(100) NOT NULL,
+  `usuarioMovimiento` varchar(100) NOT NULL DEFAULT 'Desconocido',
+  `usuarioQueRealizoAccion` varchar(100) NOT NULL DEFAULT 'Desconocido',
+  `fechaMovimiento` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`auditoriaId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
 -- honeycumb.students definition
 
 CREATE TABLE `students` (
@@ -33,11 +46,12 @@ CREATE TABLE `studentCourses` (
   `studentCourseId` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `studentId` int(10) unsigned NOT NULL,
   `courseId` int(10) unsigned NOT NULL,
+  `googleClassroomData` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`googleClassroomData`)),
   PRIMARY KEY (`studentCourseId`),
   KEY `studentCourses_courses_FK` (`courseId`),
   KEY `studentCourses_students_FK` (`studentId`),
-  CONSTRAINT `studentCourses_courses_FK` FOREIGN KEY (`courseId`) REFERENCES `courses` (`idCourse`),
-  CONSTRAINT `studentCourses_students_FK` FOREIGN KEY (`studentId`) REFERENCES `students` (`studentId`)
+  CONSTRAINT `studentCourses_courses_FK` FOREIGN KEY (`courseId`) REFERENCES `courses` (`idCourse`) ON DELETE CASCADE,
+  CONSTRAINT `studentCourses_students_FK` FOREIGN KEY (`studentId`) REFERENCES `students` (`studentId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
@@ -59,8 +73,8 @@ CREATE TABLE `usuarios` (
   KEY `usuarios_usuarios_FK` (`users`),
   KEY `usuarios_sessions_FK` (`sessions`),
   KEY `usuarios_coordinador_FK` (`coordinador`),
-  CONSTRAINT `usuarios_coordinador_FK` FOREIGN KEY (`coordinador`) REFERENCES `usuarios` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  CONSTRAINT `usuarios_coordinador_FK` FOREIGN KEY (`coordinador`) REFERENCES `usuarios` (`userId`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 -- honeycumb.sessions definition
@@ -76,7 +90,7 @@ CREATE TABLE `sessions` (
   PRIMARY KEY (`sessionId`),
   KEY `sessions_usuarios_FK` (`usuario`),
   CONSTRAINT `sessions_usuarios_FK` FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`userId`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
 -- honeycumb.userCourses definition
@@ -86,13 +100,11 @@ CREATE TABLE `userCourses` (
   `course` int(10) unsigned NOT NULL,
   `user` int(10) unsigned NOT NULL,
   PRIMARY KEY (`userCoursesId`),
-  KEY `userCourses_usuarios_FK` (`user`),
   KEY `userCourses_courses_FK` (`course`),
-  CONSTRAINT `userCourses_courses_FK` FOREIGN KEY (`course`) REFERENCES `courses` (`idCourse`),
-  CONSTRAINT `userCourses_usuarios_FK` FOREIGN KEY (`user`) REFERENCES `usuarios` (`userId`)
+  KEY `userCourses_usuarios_FK` (`user`),
+  CONSTRAINT `userCourses_courses_FK` FOREIGN KEY (`course`) REFERENCES `courses` (`idCourse`) ON DELETE CASCADE,
+  CONSTRAINT `userCourses_usuarios_FK` FOREIGN KEY (`user`) REFERENCES `usuarios` (`userId`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-
 
 
 -- Cortar aquí si no funciona.
@@ -114,4 +126,25 @@ BEGIN
     ELSE
         RETURN userId; -- Retornar el userId si se encontró
     END IF;
+END;
+
+
+-- Triggers
+
+CREATE DEFINER=`david`@`localhost` TRIGGER `after_usuario_update`
+AFTER UPDATE ON `usuarios`
+FOR EACH ROW
+BEGIN
+    INSERT INTO `registroAuditoria` 
+    (`tipoMovimiento`, `nombreUsuario`, `fechaMovimiento`, `usuarioQueRealizoAccion`)
+    VALUES ('UPDATE', NEW.names, NOW(), CURRENT_USER());
+END;
+
+CREATE DEFINER=`david`@`localhost` TRIGGER `after_usuario_delete`
+AFTER DELETE ON `usuarios`
+FOR EACH ROW
+BEGIN
+    INSERT INTO `registroAuditoria` 
+    (`tipoMovimiento`, `nombreUsuario`, `fechaMovimiento`, `usuarioQueRealizoAccion`)
+    VALUES ('DELETE', OLD.names, NOW(), CURRENT_USER());
 END;
