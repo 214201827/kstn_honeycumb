@@ -1,0 +1,48 @@
+services:
+  honeycumb-front:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: honeycumb-front
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - honeycumb-network
+
+  db:
+    image: mariadb:latest
+    container_name: mariadb
+    environment:
+      MYSQL_ROOT_PASSWORD: keystone
+      MYSQL_DATABASE: honeycumb
+      MYSQL_USER: keystone
+      MYSQL_PASSWORD: keystone
+    volumes:
+      - ./db/initial-script.sql:/docker-entrypoint-initdb.d/initial-script.sql
+      - db-data:/var/lib/mysql
+    networks:
+      - honeycumb-network
+
+  db-backup:
+    image: mariadb:latest
+    container_name: db-backup
+    environment:
+      MYSQL_ROOT_PASSWORD: keystone
+      MYSQL_DATABASE: honeycumb
+      MYSQL_USER: keystone
+      MYSQL_PASSWORD: keystone
+    volumes:
+      - ./backups:/backups  # Directorio local para guardar los respaldos
+      - db-data:/var/lib/mysql
+    entrypoint: ["/bin/sh", "/backup.sh"] 
+    networks:
+      - honeycumb-network
+
+networks:
+  honeycumb-network:
+    driver: bridge
+
+volumes:
+  db-data:

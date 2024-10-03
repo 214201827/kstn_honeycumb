@@ -2,6 +2,6 @@ FROM nginx:latest
 
 COPY ./website /usr/share/nginx/html
 
-EXPOSE 3333
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
