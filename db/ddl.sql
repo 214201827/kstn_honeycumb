@@ -77,6 +77,11 @@ CREATE TABLE `usuarios` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
+
+
+
+
+
 -- honeycumb.sessions definition
 
 CREATE TABLE `sessions` (
@@ -109,29 +114,35 @@ CREATE TABLE `userCourses` (
 
 -- Cortar aquí si no funciona.
 
-CREATE DEFINER=`david`@`localhost` FUNCTION `honeycumb`.`obtenerUserIdPorEmail`(correo VARCHAR(50)) RETURNS int(11)
+DELIMITER //
+
+CREATE FUNCTION `honeycumb`.`obtenerUserIdPorEmail`(correo VARCHAR(50)) RETURNS INT
     DETERMINISTIC
 BEGIN
-    DECLARE userId INT;
+    DECLARE userid INT DEFAULT NULL;
 
     -- Verificar si el usuario existe
-    SELECT u.userId INTO userId
+    SELECT u.userId INTO userid
     FROM usuarios u
     WHERE u.email = correo
     LIMIT 1;
 
     -- Si no se encuentra un usuario, devolver NULL o un valor específico
-    IF userId IS NULL THEN
+    IF userid IS NULL THEN
         RETURN -1; -- Retornar -1 si el usuario no existe
     ELSE
-        RETURN userId; -- Retornar el userId si se encontró
+        RETURN userid; -- Retornar el userId si se encontró
     END IF;
 END;
 
+DELIMITER ;
 
 -- Triggers
 
-CREATE DEFINER=`david`@`localhost` TRIGGER `after_usuario_update`
+
+DELIMITER //
+
+CREATE TRIGGER `after_usuario_update`
 AFTER UPDATE ON `usuarios`
 FOR EACH ROW
 BEGIN
@@ -140,7 +151,11 @@ BEGIN
     VALUES ('UPDATE', NEW.names, NOW(), CURRENT_USER());
 END;
 
-CREATE DEFINER=`david`@`localhost` TRIGGER `after_usuario_delete`
+DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER `after_usuario_delete`
 AFTER DELETE ON `usuarios`
 FOR EACH ROW
 BEGIN
@@ -148,3 +163,5 @@ BEGIN
     (`tipoMovimiento`, `nombreUsuario`, `fechaMovimiento`, `usuarioQueRealizoAccion`)
     VALUES ('DELETE', OLD.names, NOW(), CURRENT_USER());
 END;
+
+DELIMITER ;
