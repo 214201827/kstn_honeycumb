@@ -66,3 +66,5 @@ INSERT INTO registroAuditoria (tipoMovimiento, nombreUsuario, usuarioMovimiento,
 ('DELETE', 'Prof Smith', 'smith@example.com', 'coord@example.com', NOW()),
 ('DELETE', 'Prof Brown', 'brown@example.com', 'coord@example.com', NOW()),
 ('UPDATE', 'Prof King', 'king@example.com', 'admin@example.com', NOW());
+
+
