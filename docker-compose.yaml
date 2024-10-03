@@ -12,31 +12,32 @@ services:
       - honeycumb-network
 
   db:
-    image: mariadb:latest
+    image: mariadb:10.11.6
     container_name: mariadb
     environment:
-      MYSQL_ROOT_PASSWORD: keystone
-      MYSQL_DATABASE: honeycumb
-      MYSQL_USER: keystone
-      MYSQL_PASSWORD: keystone
+      MARIADB_ROOT_PASSWORD: keystone
+      MARIADB_DATABASE: honeycumb
+      MARIADB_USER: keystone
+      MARIADB_PASSWORD: keystone
     volumes:
-      - ./db/initial-script.sql:/docker-entrypoint-initdb.d/initial-script.sql
-      - db-data:/var/lib/mysql
+      - ./db/mariadb-image-docker-init.sql:/docker-entrypoint-initdb.d/mariadb-image-docker-init.sql
+      - ./db-data:/var/lib/mysql
     networks:
       - honeycumb-network
 
   db-backup:
-    image: mariadb:latest
+    image: mariadb:10.11.6
     container_name: db-backup
     environment:
-      MYSQL_ROOT_PASSWORD: keystone
-      MYSQL_DATABASE: honeycumb
-      MYSQL_USER: keystone
-      MYSQL_PASSWORD: keystone
+      MARIADB_ROOT_PASSWORD: keystone
+      MARIADB_DATABASE: honeycumb
+      MARIADB_USER: keystone
+      MARIADB_PASSWORD: keystone
     volumes:
       - ./backups:/backups  # Directorio local para guardar los respaldos
-      - db-data:/var/lib/mysql
-    entrypoint: ["/bin/sh", "/backup.sh"] 
+      - ./db-data:/var/lib/mysql
+      - ./backup.sh:/backup.sh
+    entrypoint: ["/bin/bash", "/backup.sh"] 
     networks:
       - honeycumb-network
 

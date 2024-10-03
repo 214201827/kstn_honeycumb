@@ -33,9 +33,7 @@ CREATE TABLE `students` (
   `names` varchar(50) NOT NULL,
   `lastNames` varchar(50) NOT NULL,
   `email` varchar(100) DEFAULT NULL,
-  `courses` int(10) unsigned DEFAULT NULL,
   `googleUserId` varchar(20) DEFAULT NULL,
-  `googleClassroomData` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`googleClassroomData`)),
   PRIMARY KEY (`studentId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -64,7 +62,6 @@ CREATE TABLE `usuarios` (
   `password_hash` text NOT NULL,
   `googleUserId` char(20) DEFAULT NULL,
   `users` int(10) unsigned DEFAULT NULL,
-  `courseId` int(10) unsigned DEFAULT NULL,
   `sessions` int(10) unsigned DEFAULT NULL,
   `userType` enum('Administrador','Coordinador','Profesor') NOT NULL,
   `coordinador` int(10) unsigned DEFAULT NULL,
