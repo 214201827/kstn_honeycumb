@@ -11,6 +11,25 @@ services:
     networks:
       - honeycumb-network
 
+# Quitar backend si no funciona.
+
+  honeycumb-back:
+    build:
+      context: ./node # Ruta a la carpeta del proyecto backend
+      dockerfile: Dockerfile
+    container_name: honeycumb-back
+    environment:
+      - DB_HOST=db
+      - DB_USER=keystone
+      - DB_PASSWORD=keystone
+      - DB_NAME=honeycumb
+    ports:
+      - "3000:3000" # Puerto en el que corre tu aplicación Node.js
+    depends_on:
+      - db
+    networks:
+      - honeycumb-network
+
   db:
     image: mariadb:10.11.6
     container_name: mariadb
