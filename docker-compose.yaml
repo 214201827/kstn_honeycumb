@@ -15,7 +15,7 @@ services:
 
   honeycumb-back:
     build:
-      context: ./node # Ruta a la carpeta del proyecto backend
+      context: ./node
       dockerfile: Dockerfile
     container_name: honeycumb-back
     environment:
@@ -24,9 +24,10 @@ services:
       - DB_PASSWORD=keystone
       - DB_NAME=honeycumb
     ports:
-      - "3000:3000" # Puerto en el que corre tu aplicación Node.js
+    - "3000:3000"
     depends_on:
       - db
+      - db-backup
     networks:
       - honeycumb-network
 
