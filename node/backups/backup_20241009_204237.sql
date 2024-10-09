@@ -1072,11 +1072,11 @@ CREATE TABLE `registroAuditoria` (
 LOCK TABLES `registroAuditoria` WRITE;
 /*!40000 ALTER TABLE `registroAuditoria` DISABLE KEYS */;
 INSERT INTO `registroAuditoria` VALUES
-(1,'UPDATE','Admin User','admin@example.com','admin@example.com','2024-10-03 20:35:34'),
-(2,'UPDATE','Coord User','coord@example.com','admin@example.com','2024-10-03 20:35:34'),
-(3,'DELETE','Prof Smith','smith@example.com','coord@example.com','2024-10-03 20:35:34'),
-(4,'DELETE','Prof Brown','brown@example.com','coord@example.com','2024-10-03 20:35:34'),
-(5,'UPDATE','Prof King','king@example.com','admin@example.com','2024-10-03 20:35:34');
+(1,'UPDATE','Admin User','admin@example.com','admin@example.com','2024-10-09 17:57:46'),
+(2,'UPDATE','Coord User','coord@example.com','admin@example.com','2024-10-09 17:57:46'),
+(3,'DELETE','Prof Smith','smith@example.com','coord@example.com','2024-10-09 17:57:46'),
+(4,'DELETE','Prof Brown','brown@example.com','coord@example.com','2024-10-09 17:57:46'),
+(5,'UPDATE','Prof King','king@example.com','admin@example.com','2024-10-09 17:57:46');
 /*!40000 ALTER TABLE `registroAuditoria` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1108,12 +1108,12 @@ CREATE TABLE `sessions` (
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
 INSERT INTO `sessions` VALUES
-(1,'2024-10-03 20:35:34','2024-10-03 21:35:34','token1','192.168.0.1','Mozilla/5.0',1),
-(2,'2024-10-03 20:35:34','2024-10-03 22:35:34','token2','192.168.0.2','Mozilla/5.0',2),
-(3,'2024-10-03 20:35:34','2024-10-03 23:35:34','token3','192.168.0.3','Mozilla/5.0',3),
-(4,'2024-10-03 20:35:34','2024-10-03 21:35:34','token4','192.168.0.4','Mozilla/5.0',4),
-(5,'2024-10-03 20:35:34','2024-10-03 22:35:34','token5','192.168.0.5','Mozilla/5.0',5),
-(6,'2024-10-03 20:35:34','2024-10-03 23:35:34','token6','192.168.0.6','Mozilla/5.0',6);
+(1,'2024-10-09 17:57:46','2024-10-09 18:57:46','token1','192.168.0.1','Mozilla/5.0',1),
+(2,'2024-10-09 17:57:46','2024-10-09 19:57:46','token2','192.168.0.2','Mozilla/5.0',2),
+(3,'2024-10-09 17:57:46','2024-10-09 20:57:46','token3','192.168.0.3','Mozilla/5.0',3),
+(4,'2024-10-09 17:57:46','2024-10-09 18:57:46','token4','192.168.0.4','Mozilla/5.0',4),
+(5,'2024-10-09 17:57:46','2024-10-09 19:57:46','token5','192.168.0.5','Mozilla/5.0',5),
+(6,'2024-10-09 17:57:46','2024-10-09 20:57:46','token6','192.168.0.6','Mozilla/5.0',6);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2320,4 +2320,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-10-03 20:42:21
+-- Dump completed on 2024-10-09 20:42:37

@@ -1,7 +1,7 @@
 #!/bin/bash
-sleep 15
-/usr/bin/mysqldump -h db -u keystone -pkeystone honeycumb > /backups/backup_$(date +'%Y%m%d_%H%M%S').sql
-while true; do
-  /usr/bin/mysqldump -h db -u keystone -pkeystone honeycumb > /backups/backup_$(date +'%Y%m%d_%H%M%S').sql
-  sleep 86400  # Respaldo diario
-done
+TIMESTAMP=$(date +"%Y%m%d%H%M%S")
+MARIADB_USER="keystone"
+MARIADB_PASSWORD="keystone"
+DB_HOST="db"
+MARIADB_DATABASE="honeycumb"
+mysqldump -u${MARIADB_USER} -p${MARIADB_PASSWORD} -h${DB_HOST} ${MARIADB_DATABASE} > /backups/backup-${TIMESTAMP}.sql

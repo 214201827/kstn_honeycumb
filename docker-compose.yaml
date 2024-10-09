@@ -15,7 +15,7 @@ services:
 
   honeycumb-back:
     build:
-      context: ./node
+      context: ./node # Ruta a la carpeta del proyecto backend
       dockerfile: Dockerfile
     container_name: honeycumb-back
     environment:
@@ -24,10 +24,11 @@ services:
       - DB_PASSWORD=keystone
       - DB_NAME=honeycumb
     ports:
-    - "3000:3000"
+      - "3000:3000" # Puerto en el que corre tu aplicación Node.js
+    volumes:
+      - ./backups:/backups
     depends_on:
       - db
-      - db-backup
     networks:
       - honeycumb-network
 
@@ -54,10 +55,13 @@ services:
       MARIADB_USER: keystone
       MARIADB_PASSWORD: keystone
     volumes:
-      - ./backups:/backups  # Directorio local para guardar los respaldos
+      - ./node/backups:/backups  # Directorio local para guardar los respaldos
       - ./db-data:/var/lib/mysql
+      - ./backup-day.sh:/backup-day.sh
       - ./backup.sh:/backup.sh
-    entrypoint: ["/bin/bash", "/backup.sh"] 
+    entrypoint: ["/bin/bash", "/backup-day.sh"]
+    depends_on:
+      - db 
     networks:
       - honeycumb-network
 

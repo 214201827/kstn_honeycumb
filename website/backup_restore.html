@@ -192,7 +192,7 @@
                                 <button type="button" class="btn mb-1 btn-primary" onclick="downloadBackup()">Respaldo de base de datos</button>
 
 <script>
-  function downloadBackup() {
+  /*function downloadBackup() {
     fetch('http://localhost:3000/backup')
       .then(response => response.blob())
       .then(blob => {
@@ -205,8 +205,10 @@
         a.remove();
       })
       .catch(error => console.error('Error al descargar el respaldo:', error));
-  }
-</script>
+  }*/
+
+  window.location.href = 'http://127.0.0.1:3000/download-backup';
+</script>*/
                             </div>
                         </div>
                     </div>
