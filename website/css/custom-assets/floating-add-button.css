@@ -1,0 +1,28 @@
+.fab-container {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+}
+
+.fab-button {
+    /*background-color: #4CAF50; *//* Color del botón */
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    cursor: pointer;
+}
+
+/*.fab-button:hover {
+    background-color: #45a049;
+}*/
+
+.fab-button i {
+    font-size: 24px; /* Icono de tamaño adecuado */
+}

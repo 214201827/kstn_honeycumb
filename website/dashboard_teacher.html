@@ -10,8 +10,6 @@
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <!-- Custom Stylesheet -->
     <link href="css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/custom-assets/floating-add-button.css">
-
 
 </head>
 
@@ -42,7 +40,7 @@
         ***********************************-->
         <div class="nav-header">
             <div class="brand-logo">
-                <a href="dashboard_admin.html">
+                <a href="dashboard_teacher.html">
                     <b class="logo-abbr"><img src="images/keystone-isotipo.png" alt="" width="25" height="19"> </b>
                     <span class="logo-compact"><img src="./images/keystone-isotipo.png" alt=""></span>
                     <span class="brand-title">
@@ -131,8 +129,8 @@
                 <ul class="metismenu" id="menu">
                     <li class="nav-label">Menú</li>
                     <li>
-                        <a href="dashboard_admin.html" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Usuarios</span>
+                        <a href="dashboard_teacher.html" aria-expanded="false">
+                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Cursos</span>
                         </a>
                         
                         <ul aria-expanded="false">
@@ -140,8 +138,8 @@
                         </ul>
                         
                         <li>
-                            <a href="backup_restore.html" aria-expanded="false">
-                                <i class="icon-notebook menu-icon"></i><span class="nav-text">Backup</span>
+                            <a href="#" aria-expanded="false">
+                                <i class="icon-notebook menu-icon"></i><span class="nav-text">Configuracion</span>
                             </a>
                         </li>
                             
@@ -239,43 +237,7 @@
                 </div>
             </div>
 
-            <div class="fab-container">
-                <button class="fab-button button-success btn-primary" data-toggle="modal" data-target="#addUserModal">
-                    <i class="fa fa-plus"></i> <!-- Icono de Material Design -->
-                </button>
-            </div>
             
-            <!-- Modal para agregar usuario -->
-            <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="addUserModalLabel">Agregar Usuario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <!-- Formulario para agregar un nuevo usuario -->
-                    <form>
-                      <div class="form-group">
-                        <label for="username">Nombre de usuario</label>
-                        <input type="text" class="form-control" id="username" placeholder="Ingresa nombre de usuario">
-                      </div>
-                      <div class="form-group">
-                        <label for="email">Correo electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Ingresa correo electrónico">
-                      </div>
-                      <!-- Más campos -->
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar Usuario</button>
-                  </div>
-                </div>
-              </div>
-            </div>
             
 
             <!-- #/ container -->
