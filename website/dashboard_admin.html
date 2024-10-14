@@ -259,12 +259,24 @@
                     <!-- Formulario para agregar un nuevo usuario -->
                     <form>
                       <div class="form-group">
-                        <label for="username">Nombre de usuario</label>
-                        <input type="text" class="form-control" id="username" placeholder="Ingresa nombre de usuario">
+                        <label for="username">Nombre(s)</label>
+                        <input type="text" class="form-control" id="username" placeholder="Nombre(s)">
+                      </div>
+                      <div class="form-group">
+                        <label for="lastnames">Apellidos</label>
+                        <input type="text" class="form-control" id="lastnames" placeholder="Apellidos(s)">
                       </div>
                       <div class="form-group">
                         <label for="email">Correo electrónico</label>
                         <input type="email" class="form-control" id="email" placeholder="Ingresa correo electrónico">
+                      </div>
+                      <div class="form-group">
+                        <label for="usertype">Tipo de usuario</label>
+                        <select class="form-control" id="usertype">
+                            <option>Administrador</option>
+                            <option>Profesor</option>
+                            <option>Coordinador</option>
+                        </select>
                       </div>
                       <!-- Más campos -->
                     </form>
@@ -325,6 +337,8 @@
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 
 </body>
 
