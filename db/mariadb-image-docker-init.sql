@@ -226,7 +226,7 @@ INSERT INTO registroAuditoria (tipoMovimiento, nombreUsuario, usuarioMovimiento,
 ('UPDATE', 'Prof King', 'king@example.com', 'admin@example.com', NOW());
 
 
-insert into courses (courseName, googleClassroomData) values ('a ipsum integer a', '[{},{}]');
+/*insert into courses (courseName, googleClassroomData) values ('a ipsum integer a', '[{},{}]');
 insert into courses (courseName, googleClassroomData) values ('eu magna vulputate', '[{},{}]');
 insert into courses (courseName, googleClassroomData) values ('enim in tempor', '[{},{},{},{}]');
 insert into courses (courseName, googleClassroomData) values ('mauris viverra', '[{},{}]');
@@ -2229,3 +2229,4 @@ insert into studentCourses (studentId, courseId, googleClassroomData) values (1,
 insert into studentCourses (studentId, courseId, googleClassroomData) values (2, 3, '[{},{},{}]');
 insert into studentCourses (studentId, courseId, googleClassroomData) values (4, 6, '[{},{},{}]');
 insert into studentCourses (studentId, courseId, googleClassroomData) values (3, 2, '[{},{}]');
+*/

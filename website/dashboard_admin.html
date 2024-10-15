@@ -208,6 +208,18 @@
                                                 
                                                
                                                 <td><i class="fa fa-circle-o text-success  mr-2"></i>Activo</td>
+
+                                                <td>
+                                                    <a href="#" class="view" title="Ver usuario" data-toggle="tooltip" data-original-title="Ver">
+                                                        <i class="material-icons">visibility</i>
+                                                    </a>
+                                                    <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip" data-original-title="Editar">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                    <a href="#" class="delete" title="Eliminar usuario" data-toggle="tooltip" data-original-title="Eliminar">
+                                                        <i class="material-icons">delete</i>
+                                                    </a>
+                                                </td>
                                                 
                                             </tr>
                                             <tr>
@@ -216,16 +228,38 @@
                                                 
                                                 
                                                 <td><i class="fa fa-circle-o text-success  mr-2"></i>Activo</td>
+
+                                                <td>
+                                                    <a href="#" class="view" title="Ver usuario" data-toggle="tooltip" data-original-title="Ver">
+                                                        <i class="material-icons">visibility</i>
+                                                    </a>
+                                                    <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip" data-original-title="Editar">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                    <a href="#" class="delete" title="Eliminar usuario" data-toggle="tooltip" data-original-title="Eliminar">
+                                                        <i class="material-icons">delete</i>
+                                                    </a>
+                                                </td>
                                                 
                                             </tr>
                                             <tr>
                                                 <td><img src="./images/avatar/6.jpg" class=" rounded-circle mr-3" alt="">Teacher 3</td>
-                                                <td>teacher3@keystone.edu.mx</td> <a href="#" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
+                                                <td>teacher3@keystone.edu.mx</td>
                                                 
                                                 
                                                 <td><i class="fa fa-circle-o text-warning  mr-2"></i>Pendiente</td>
 
-                                                <td><a href="#" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a></td> 
+                                                <td>
+                                                    <a href="#" class="view" title="Ver usuario" data-toggle="tooltip" data-original-title="Ver">
+                                                        <i class="material-icons">visibility</i>
+                                                    </a>
+                                                    <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip" data-original-title="Editar">
+                                                        <i class="material-icons">edit</i>
+                                                    </a>
+                                                    <a href="#" class="delete" title="Eliminar usuario" data-toggle="tooltip" data-original-title="Eliminar">
+                                                        <i class="material-icons">delete</i>
+                                                    </a>
+                                                </td>
                                                
                                             </tr>
                                             
@@ -299,7 +333,42 @@
 
 
 
-
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Obtener todas las filas de la tabla
+                const rows = document.querySelectorAll('tbody tr');
+        
+                rows.forEach(row => {
+                    const statusCell = row.querySelector('td:nth-child(3)'); // Celda de estado
+                    const actionsCell = row.querySelector('td:nth-child(4)'); // Celda de acciones
+        
+                    // Cambiar acciones según el estado
+                    if (statusCell.textContent.includes("Activo")) {
+                        actionsCell.innerHTML = `
+                            <a href="#" class="view" title="Ver usuario" data-toggle="tooltip" data-original-title="Ver">
+                                <i class="material-icons">visibility</i>
+                            </a>
+                            <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip" data-original-title="Editar">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <a href="#" class="delete" title="Desactivar" data-toggle="tooltip" data-original-title="Desactivar">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        `;
+                    } else if (statusCell.textContent.includes("Pendiente")) {
+                        actionsCell.innerHTML = `
+                            <a href="#" class="approve" title="Reenviar invitación" data-toggle="tooltip" data-original-title="Reenviar invitación">
+                                <i class="material-icons">mail</i>
+                            </a>
+                            <a href="#" class="reject" title="Cancelar invitación" data-toggle="tooltip" data-original-title="Cancelar invitacion">
+                                <i class="material-icons">cancel</i>
+                            </a>
+                        `;
+                    }
+                });
+            });
+        </script>
+        
 
 
 
