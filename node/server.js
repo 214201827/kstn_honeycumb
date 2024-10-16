@@ -1,8 +1,48 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-
+const port = 3000;
 const app = express();
+const mysql = require('mysql');
+
+// Credenciales de la BD
+
+const db = mysql.createConnection({
+  host: 'db',
+  user: 'keystone',
+  password: 'keystone',
+  database: 'honeycumb'
+});
+
+// Conectarse a la BD
+db.connect(err => {
+  if (err) throw err;
+  console.log('Backend conectado a la base de datos.');
+});
+
+
+
+// Ruta para obtener todos los usuarios
+app.get('/usuarios', (req, res) => {
+  const query = `SELECT names, lastName, email, activo FROM usuarios`;
+
+  db.query(query, (err, results) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).send('Error al obtener los usuarios');
+      }
+
+      res.json(results); // Devolvemos la lista de usuarios en formato JSON
+  });
+});
+
+// Iniciar el servidor
+app.listen(port, () => {
+  console.log('Servidor escuchando en puerto 3000');
+});
+
+
+
 
 // Ruta para descargar el respaldo más reciente
 app.get('/download-backup', (req, res) => {
@@ -39,7 +79,9 @@ app.get('/download-backup', (req, res) => {
   });
 });
 
-const port = 3000;
+/*
 app.listen(port, () => {
   console.log(`Servidor de respaldo escuchando en el puerto ${port}`);
-});
+});*/
+
+

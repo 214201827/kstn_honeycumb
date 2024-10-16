@@ -197,74 +197,14 @@
                                             <tr>
                                                 <th>Nombre</th>
                                                 <th>Email</th>
+                                                <th>Rol</th>
                                                 <th>Estado</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><img src="./images/avatar/4.jpg" class=" rounded-circle mr-3" alt="">Teacher 1</td>
-                                                <td>teacher1@keystone.edu.mx</td>
-                                                
-                                               
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i>Activo</td>
-
-                                                <td>
-                                                    <a href="#" class="view" title="Ver usuario" data-toggle="tooltip" data-original-title="Ver">
-                                                        <i class="material-icons">visibility</i>
-                                                    </a>
-                                                    <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip" data-original-title="Editar">
-                                                        <i class="material-icons">edit</i>
-                                                    </a>
-                                                    <a href="#" class="delete" title="Eliminar usuario" data-toggle="tooltip" data-original-title="Eliminar">
-                                                        <i class="material-icons">delete</i>
-                                                    </a>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/avatar/5.jpg" class=" rounded-circle mr-3" alt="">Teacher 2</td>
-                                                <td>teacher2@keystone.edu.mx</td>
-                                                
-                                                
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i>Activo</td>
-
-                                                <td>
-                                                    <a href="#" class="view" title="Ver usuario" data-toggle="tooltip" data-original-title="Ver">
-                                                        <i class="material-icons">visibility</i>
-                                                    </a>
-                                                    <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip" data-original-title="Editar">
-                                                        <i class="material-icons">edit</i>
-                                                    </a>
-                                                    <a href="#" class="delete" title="Eliminar usuario" data-toggle="tooltip" data-original-title="Eliminar">
-                                                        <i class="material-icons">delete</i>
-                                                    </a>
-                                                </td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/avatar/6.jpg" class=" rounded-circle mr-3" alt="">Teacher 3</td>
-                                                <td>teacher3@keystone.edu.mx</td>
-                                                
-                                                
-                                                <td><i class="fa fa-circle-o text-warning  mr-2"></i>Pendiente</td>
-
-                                                <td>
-                                                    <a href="#" class="view" title="Ver usuario" data-toggle="tooltip" data-original-title="Ver">
-                                                        <i class="material-icons">visibility</i>
-                                                    </a>
-                                                    <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip" data-original-title="Editar">
-                                                        <i class="material-icons">edit</i>
-                                                    </a>
-                                                    <a href="#" class="delete" title="Eliminar usuario" data-toggle="tooltip" data-original-title="Eliminar">
-                                                        <i class="material-icons">delete</i>
-                                                    </a>
-                                                </td>
-                                               
-                                            </tr>
-                                            
+                                        <tbody id="tabla-usuarios">
+                                            <!-- Aquí se agregarán las filas dinámicamente -->
                                         </tbody>
-                                            
                                     </table>
                                 </div>
                             </div>
@@ -272,7 +212,7 @@
                     </div>
                 </div>
             </div>
-
+            
             <div class="fab-container">
                 <button class="fab-button button-success btn-primary" data-toggle="modal" data-target="#addUserModal">
                     <i class="fa fa-plus"></i> <!-- Icono de Material Design -->
@@ -367,6 +307,74 @@
                     }
                 });
             });
+
+
+            // Script para obtener usuarios en la tabla
+            
+               // Función para obtener usuarios del servidor
+    function obtenerUsuarios() {
+        fetch('/usuarios') // Llama al backend para obtener los usuarios
+            .then(response => response.json()) // Convierte la respuesta a JSON
+            .then(data => {
+                // Llamar a la función que rellena la tabla con los datos
+                rellenarTablaUsuarios(data);
+            })
+            .catch(error => console.error('Error al obtener los usuarios:', error));
+    }
+
+    // Función para rellenar la tabla con los usuarios obtenidos
+    function rellenarTablaUsuarios(usuarios) {
+        const tbody = document.getElementById('tabla-usuarios');
+        tbody.innerHTML = ''; // Limpia cualquier dato anterior
+
+        usuarios.forEach(usuario => {
+            // Crear una fila de la tabla
+            const fila = document.createElement('tr');
+
+            // Crear las celdas para cada columna
+            const nombreCelda = document.createElement('td');
+            nombreCelda.innerHTML = `<img src="./images/avatar/4.jpg" class="rounded-circle mr-3" alt=""> ${usuario.nombre}`;
+
+            const emailCelda = document.createElement('td');
+            emailCelda.textContent = usuario.email;
+
+            const rolCelda = document.createElement('td');
+            rolCelda.textContent = usuario.rol;
+
+            const estadoCelda = document.createElement('td');
+            const estadoIcono = usuario.estado === 'activo' 
+                ? '<i class="fa fa-circle-o text-success mr-2"></i> Activo'
+                : '<i class="fa fa-circle-o text-warning mr-2"></i> Inactivo';
+            estadoCelda.innerHTML = estadoIcono;
+
+            // Crear celda de acciones con botones
+            const accionesCelda = document.createElement('td');
+            accionesCelda.innerHTML = `
+                <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip">
+                    <i class="material-icons">edit</i>
+                </a>
+                <a href="#" class="delete" title="${usuario.estado === 'activo' ? 'Desactivar usuario' : 'Activar usuario'}" data-toggle="tooltip">
+                    <i class="material-icons">${usuario.estado === 'activo' ? 'ban' : 'check'}</i>
+                </a>
+            `;
+
+            // Agregar celdas a la fila
+            fila.appendChild(nombreCelda);
+            fila.appendChild(emailCelda);
+            fila.appendChild(rolCelda);
+            fila.appendChild(estadoCelda);
+            fila.appendChild(accionesCelda);
+
+            // Agregar la fila al tbody de la tabla
+            tbody.appendChild(fila);
+        });
+    }
+
+    // Llamar la función para obtener y mostrar los usuarios cuando la página cargue
+    document.addEventListener('DOMContentLoaded', obtenerUsuarios);
+
+rellenarTablaUsuarios();
+
         </script>
         
 

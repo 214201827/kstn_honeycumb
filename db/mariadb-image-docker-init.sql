@@ -66,6 +66,7 @@ CREATE TABLE `usuarios` (
   `userType` enum('Administrador','Coordinador','Profesor') NOT NULL,
   `coordinador` int(10) unsigned DEFAULT NULL,
   `lastName` varchar(50) NOT NULL,
+  `activo` boolean NOT NULL DEFAULT TRUE,
   PRIMARY KEY (`userId`),
   KEY `usuarios_usuarios_FK` (`users`),
   KEY `usuarios_sessions_FK` (`sessions`),

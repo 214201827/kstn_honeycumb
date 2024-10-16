@@ -4,12 +4,12 @@
     "description": "Backend para generar y descargar el volcado de la base de datos.",
     "main": "server.js",
     "scripts": {
-      "start": "node server.js"
+        "start": "node server.js"
     },
     "author": "Equipo 7",
     "license": "ISC",
     "dependencies": {
-      "express": "^4.18.2"
+        "express": "^4.18.2",
+        "mysql": "^2.18.1"
     }
-  }
-  
+}
