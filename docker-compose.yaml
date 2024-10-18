@@ -11,7 +11,6 @@ services:
     networks:
       - honeycumb-network
 
-# Quitar backend si no funciona.
 
   honeycumb-back:
     build:
@@ -45,6 +44,13 @@ services:
       - ./db-data:/var/lib/mysql
     networks:
       - honeycumb-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
 
   db-backup:
     image: mariadb:10.11.6

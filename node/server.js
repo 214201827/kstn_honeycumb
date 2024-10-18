@@ -3,7 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const port = 3000;
 const app = express();
-const mysql = require('mysql');
+const mysql = require('mysql2');
+const cors = require('cors');
 
 // Credenciales de la BD
 
@@ -20,11 +21,12 @@ db.connect(err => {
   console.log('Backend conectado a la base de datos.');
 });
 
-
+// Aplicar CORS a todas las rutas
+app.use(cors());
 
 // Ruta para obtener todos los usuarios
 app.get('/usuarios', (req, res) => {
-  const query = `SELECT names, lastName, email, activo FROM usuarios`;
+  const query = `SELECT names, lastName, email, status, userType FROM usuarios`;
 
   db.query(query, (err, results) => {
       if (err) {

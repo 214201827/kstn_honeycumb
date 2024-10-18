@@ -313,7 +313,7 @@
             
                // Función para obtener usuarios del servidor
     function obtenerUsuarios() {
-        fetch('/usuarios') // Llama al backend para obtener los usuarios
+        fetch('http://localhost:3000/usuarios', {mode: "cors"}) // Llama al backend para obtener los usuarios
             .then(response => response.json()) // Convierte la respuesta a JSON
             .then(data => {
                 // Llamar a la función que rellena la tabla con los datos
@@ -322,58 +322,86 @@
             .catch(error => console.error('Error al obtener los usuarios:', error));
     }
 
-    // Función para rellenar la tabla con los usuarios obtenidos
-    function rellenarTablaUsuarios(usuarios) {
-        const tbody = document.getElementById('tabla-usuarios');
-        tbody.innerHTML = ''; // Limpia cualquier dato anterior
+   // Función para rellenar la tabla con los usuarios obtenidos
+function rellenarTablaUsuarios(usuarios) {
+    const tbody = document.getElementById('tabla-usuarios');
+    tbody.innerHTML = ''; // Limpia cualquier dato anterior
 
-        usuarios.forEach(usuario => {
-            // Crear una fila de la tabla
-            const fila = document.createElement('tr');
+    usuarios.forEach(usuario => {
+        // Crear una fila de la tabla
+        const fila = document.createElement('tr');
 
-            // Crear las celdas para cada columna
-            const nombreCelda = document.createElement('td');
-            nombreCelda.innerHTML = `<img src="./images/avatar/4.jpg" class="rounded-circle mr-3" alt=""> ${usuario.nombre}`;
+        // Crear las celdas para cada columna
+        const nombreCelda = document.createElement('td');
+        nombreCelda.innerHTML = `<img src="./images/avatar/4.jpg" class="rounded-circle mr-3" alt=""> ${usuario.names + " " + usuario.lastName}`;
 
-            const emailCelda = document.createElement('td');
-            emailCelda.textContent = usuario.email;
+        const emailCelda = document.createElement('td');
+        emailCelda.textContent = usuario.email;
 
-            const rolCelda = document.createElement('td');
-            rolCelda.textContent = usuario.rol;
+        const rolCelda = document.createElement('td');
+        rolCelda.textContent = usuario.userType;
 
-            const estadoCelda = document.createElement('td');
-            const estadoIcono = usuario.estado === 'activo' 
-                ? '<i class="fa fa-circle-o text-success mr-2"></i> Activo'
-                : '<i class="fa fa-circle-o text-warning mr-2"></i> Inactivo';
-            estadoCelda.innerHTML = estadoIcono;
+        const estadoCelda = document.createElement('td');
+        let estadoIcono;
+        if (usuario.status === 'Activo') {
+            estadoIcono = '<i class="fa fa-circle-o text-success mr-2"></i> Activo';
+        } else if (usuario.status === 'Inactivo') {
+            estadoIcono = '<i class="fa fa-circle-o text-warning mr-2"></i> Inactivo';
+        } else if (usuario.status === 'Pendiente') {
+            estadoIcono = '<i class="fa fa-circle-o text-info mr-2"></i> Pendiente';
+        }
+        estadoCelda.innerHTML = estadoIcono;
 
-            // Crear celda de acciones con botones
-            const accionesCelda = document.createElement('td');
-            accionesCelda.innerHTML = `
+        // Crear celda de acciones con botones
+        const accionesCelda = document.createElement('td');
+        let accionesHTML;
+        if (usuario.status === 'Activo') {
+            accionesHTML = `
                 <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip">
                     <i class="material-icons">edit</i>
                 </a>
-                <a href="#" class="delete" title="${usuario.estado === 'activo' ? 'Desactivar usuario' : 'Activar usuario'}" data-toggle="tooltip">
-                    <i class="material-icons">${usuario.estado === 'activo' ? 'ban' : 'check'}</i>
+                <a href="#" class="delete" title="Desactivar usuario" data-toggle="tooltip">
+                    <i class="material-icons">block</i>
                 </a>
             `;
+        } else if (usuario.status === 'Inactivo') {
+            accionesHTML = `
+                <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip">
+                    <i class="material-icons">edit</i>
+                </a>
+                <a href="#" class="delete" title="Activar usuario" data-toggle="tooltip">
+                    <i class="material-icons">check</i>
+                </a>
+            `;
+        } else if (usuario.status === 'Pendiente') {
+            accionesHTML = `
+                <a href="#" class="resend" title="Reenviar invitación" data-toggle="tooltip">
+                    <i class="material-icons">email</i>
+                </a>
+                <a href="#" class="cancel" title="Cancelar invitación" data-toggle="tooltip">
+                    <i class="material-icons">cancel</i>
+                </a>
+            `;
+        }
 
-            // Agregar celdas a la fila
-            fila.appendChild(nombreCelda);
-            fila.appendChild(emailCelda);
-            fila.appendChild(rolCelda);
-            fila.appendChild(estadoCelda);
-            fila.appendChild(accionesCelda);
+        accionesCelda.innerHTML = accionesHTML;
 
-            // Agregar la fila al tbody de la tabla
-            tbody.appendChild(fila);
-        });
-    }
+        // Agregar celdas a la fila
+        fila.appendChild(nombreCelda);
+        fila.appendChild(emailCelda);
+        fila.appendChild(rolCelda);
+        fila.appendChild(estadoCelda);
+        fila.appendChild(accionesCelda);
+
+        // Agregar la fila al tbody de la tabla
+        tbody.appendChild(fila);
+    });
+}
+
 
     // Llamar la función para obtener y mostrar los usuarios cuando la página cargue
     document.addEventListener('DOMContentLoaded', obtenerUsuarios);
 
-rellenarTablaUsuarios();
 
         </script>
         

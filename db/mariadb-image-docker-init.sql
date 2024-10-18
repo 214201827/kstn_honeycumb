@@ -61,15 +61,11 @@ CREATE TABLE `usuarios` (
   `email` varchar(50) NOT NULL,
   `password_hash` text NOT NULL,
   `googleUserId` char(20) DEFAULT NULL,
-  `users` int(10) unsigned DEFAULT NULL,
-  `sessions` int(10) unsigned DEFAULT NULL,
   `userType` enum('Administrador','Coordinador','Profesor') NOT NULL,
   `coordinador` int(10) unsigned DEFAULT NULL,
   `lastName` varchar(50) NOT NULL,
-  `activo` boolean NOT NULL DEFAULT TRUE,
+  `status` enum('Activo', 'Inactivo', 'Pendiente'),
   PRIMARY KEY (`userId`),
-  KEY `usuarios_usuarios_FK` (`users`),
-  KEY `usuarios_sessions_FK` (`sessions`),
   KEY `usuarios_coordinador_FK` (`coordinador`),
   CONSTRAINT `usuarios_coordinador_FK` FOREIGN KEY (`coordinador`) REFERENCES `usuarios` (`userId`) ON DELETE SET NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -180,14 +176,13 @@ INSERT INTO students (names, lastNames, email, googleUserId) VALUES
 ('Donna', 'Paulsen', 'donna.paulsen@example.com', 'g456789');
 
 -- Insertar datos en la tabla `usuarios`
-INSERT INTO usuarios (names, lastName, email, password_hash, googleUserId, userType) VALUES
-('Admin', 'User', 'admin@example.com', 'password_hash_admin', 'g001', 'Administrador'),
-('Coord', 'User', 'coord@example.com', 'password_hash_coord', 'g002', 'Coordinador'),
-('Prof', 'Smith', 'smith@example.com', 'password_hash_prof', 'g003', 'Profesor'),
-('Prof', 'Brown', 'brown@example.com', 'password_hash_brown', 'g004', 'Profesor'),
-('Prof', 'Johnson', 'johnson@example.com', 'password_hash_johnson', 'g005', 'Profesor'),
-('Prof', 'King', 'king@example.com', 'password_hash_king', 'g006', 'Profesor');
-
+INSERT INTO usuarios (names, lastName, email, password_hash, status, userType) VALUES
+('Admin', 'User', 'admin@example.com', 'password_hash_admin', 'Activo', 'Administrador'),
+('Coord', 'User', 'coord@example.com', 'password_hash_coord', 'Inactivo', 'Coordinador'),
+('Prof', 'Smith', 'smith@example.com', 'password_hash_prof', 'Pendiente', 'Profesor'),
+('Prof', 'Brown', 'brown@example.com', 'password_hash_brown', 'Pendiente', 'Profesor'),
+('Prof', 'Johnson', 'johnson@example.com', 'password_hash_johnson', 'Activo', 'Profesor'),
+('Prof', 'King', 'king@example.com', 'password_hash_king', 'Activo', 'Profesor');
 -- Insertar datos en la tabla `studentCourses`
 INSERT INTO studentCourses (studentId, courseId, googleClassroomData) VALUES
 (1, 1, '{"classroomId": "abc123", "grade": 95}'),
