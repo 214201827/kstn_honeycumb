@@ -11,6 +11,8 @@ COPY package*.json ./
 RUN npm install
 RUN npm install mysql2
 RUN npm install cors
+RUN npm install bcrypt
+RUN npm install express
 
 # Copiar el resto de los archivos del proyecto
 COPY . .

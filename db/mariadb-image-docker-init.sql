@@ -64,7 +64,7 @@ CREATE TABLE `usuarios` (
   `userType` enum('Administrador','Coordinador','Profesor') NOT NULL,
   `coordinador` int(10) unsigned DEFAULT NULL,
   `lastName` varchar(50) NOT NULL,
-  `status` enum('Activo', 'Inactivo', 'Pendiente'),
+  `status` enum('Activo', 'Inactivo', 'Pendiente') NOT NULL DEFAULT 'Activo',
   PRIMARY KEY (`userId`),
   KEY `usuarios_coordinador_FK` (`coordinador`),
   CONSTRAINT `usuarios_coordinador_FK` FOREIGN KEY (`coordinador`) REFERENCES `usuarios` (`userId`) ON DELETE SET NULL
