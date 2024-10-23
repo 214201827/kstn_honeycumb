@@ -220,48 +220,52 @@
             </div>
             
             <!-- Modal para agregar usuario -->
-            <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="addUserModalLabel">Agregar Usuario</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <!-- Formulario para agregar un nuevo usuario -->
-                    <form>
-                      <div class="form-group">
-                        <label for="username">Nombre(s)</label>
-                        <input type="text" class="form-control" id="username" placeholder="Nombre(s)">
-                      </div>
-                      <div class="form-group">
-                        <label for="lastnames">Apellidos</label>
-                        <input type="text" class="form-control" id="lastnames" placeholder="Apellidos(s)">
-                      </div>
-                      <div class="form-group">
-                        <label for="email">Correo electrónico</label>
-                        <input type="email" class="form-control" id="email" placeholder="Ingresa correo electrónico">
-                      </div>
-                      <div class="form-group">
-                        <label for="usertype">Tipo de usuario</label>
-                        <select class="form-control" id="usertype">
-                            <option>Administrador</option>
-                            <option>Profesor</option>
-                            <option>Coordinador</option>
-                        </select>
-                      </div>
-                      <!-- Más campos -->
-                    </form>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary">Guardar Usuario</button>
-                  </div>
-                </div>
-              </div>
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addUserModalLabel">Agregar Usuario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario para agregar un nuevo usuario -->
+          <form id="addUserForm">
+            <div class="form-group">
+              <label for="username">Nombre(s)</label>
+              <input type="text" class="form-control" id="username" placeholder="Nombre(s)" required>
             </div>
+            <div class="form-group">
+              <label for="lastnames">Apellidos</label>
+              <input type="text" class="form-control" id="lastnames" placeholder="Apellidos(s)" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Correo electrónico</label>
+              <input type="email" class="form-control" id="email" placeholder="Ingresa correo electrónico" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input type="password" class="form-control" id="password" placeholder="Ingresa la contraseña" required>
+            </div>
+            <div class="form-group">
+              <label for="usertype">Tipo de usuario</label>
+              <select class="form-control" id="usertype" required>
+                <option>Administrador</option>
+                <option>Profesor</option>
+                <option>Coordinador</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="saveUserBtn">Guardar Usuario</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
             
 
             <!-- #/ container -->
@@ -309,6 +313,63 @@
             });
 
 
+
+
+
+            document.getElementById('saveUserBtn').addEventListener('click', async function () {
+  // Captura los datos del formulario
+  const username = document.getElementById('username').value;
+  const lastnames = document.getElementById('lastnames').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const userType = document.getElementById('usertype').value;
+
+  // Validar que los campos requeridos estén completos
+  if (!username || !lastnames || !email || !password || !userType) {
+    alert('Por favor, completa todos los campos.');
+    return;
+  }
+
+  // Crear el cuerpo de la solicitud
+  const data = {
+    names: username,
+    lastName: lastnames,
+    email: email,
+    password: password,
+    userType: userType
+  };
+
+  try {
+    // Hacer la solicitud POST al backend
+    const response = await fetch('http://127.0.0.1:3000/usuario', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    // Procesar la respuesta
+    if (response.ok) {
+      const result = await response.json();
+      alert('Usuario agregado exitosamente');
+      // Aquí podrías recargar la lista de usuarios o limpiar el formulario
+      $('#addUserModal').modal('hide');
+    } else {
+      const errorData = await response.json();
+      alert('Error al agregar el usuario: ' + errorData.error);
+    }
+  } catch (error) {
+    console.error('Error al realizar la solicitud:', error);
+    alert('Ocurrió un error al tratar de guardar el usuario.');
+  }
+});
+
+
+
+
+
+            
             // Script para obtener usuarios en la tabla
             
                // Función para obtener usuarios del servidor
