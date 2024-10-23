@@ -2,8 +2,14 @@
 
 ## Construir la imagen con el dockerfile
 
-`$ docker build -t honeycumb .`
+`$ docker compose build
 
 ## Ejecución
 
-`$ docker run -d -p 3333:80 honeycumb`
+`$ docker compose up -d
+
+
+
+## Licencia
+
+Este proyecto está licenciado bajo la GNU Affero General Public License (AGPL). Para más detalles, consulta el archivo LICENSE.
