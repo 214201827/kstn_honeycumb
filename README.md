@@ -2,11 +2,11 @@
 
 ## Construir la imagen con el dockerfile
 
-`$ docker compose build
+`$ docker compose build`
 
 ## Ejecución
 
-`$ docker compose up -d
+`$ docker compose up -d`
 
 
 
