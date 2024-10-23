@@ -9,10 +9,7 @@ COPY package*.json ./
 
 # Instalar las dependencias del proyecto
 RUN npm install
-RUN npm install mysql2
-RUN npm install cors
-RUN npm install bcrypt
-RUN npm install express
+RUN npm install mysql2 cors bcrypt express body-parser cookie-parser googleapis
 
 # Copiar el resto de los archivos del proyecto
 COPY . .
