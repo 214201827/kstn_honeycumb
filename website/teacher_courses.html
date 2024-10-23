@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>KeystoneCore - Página de información</title>
+    <title>KeystoneCore - Lista de cursos</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <!-- Custom Stylesheet -->
@@ -172,20 +172,60 @@
             Content body start
         ***********************************-->
         <div class="content-body">
-            <div clss="container-fluid">
-               <div class="col-lg-6">
-                  <div class="card border-info">
-                     <div class="card-body">
-                        <h5 class="card-title">Info card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-info">Go somewhere</a>
-                     </div>
-                     <div class="card-footer"><small>Last updateed 3 min ago</small>
-                     </div>
-                  </div>
-               </div>
+            <div class="container-fluid">
+                <!-- Encabezado -->
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <h1 class="text-center">Clases de Google Classroom</h1>
+                        <p class="text-center">Lista de clases que enseñas. Haz clic en una para ver los alumnos.</p>
+                    </div>
+                </div>
+        
+                <div class="row">
+                    <!-- Tarjeta 1 -->
+                    <div class="col-lg-4 col-md-6 mb-4"> <!-- Ajusta el tamaño según necesites -->
+                        <div class="card border-info">
+                            <div class="card-body">
+                                <h5 class="card-title">Clase 1</h5>
+                                <p class="card-text">Descripción breve de la clase 1.</p>
+                                <a href="pagina-alumnos.html?classId=1" class="btn btn-info">Ver alumnos</a> <!-- Enlace a la página de alumnos -->
+                            </div>
+                            <div class="card-footer">
+                                <small>Última actualización: hace 3 min</small>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Tarjeta 2 -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card border-info">
+                            <div class="card-body">
+                                <h5 class="card-title">Clase 2</h5>
+                                <p class="card-text">Descripción breve de la clase 2.</p>
+                                <a href="pagina-alumnos.html?classId=2" class="btn btn-info">Ver alumnos</a>
+                            </div>
+                            <div class="card-footer">
+                                <small>Última actualización: hace 5 min</small>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Tarjeta 3 -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card border-info">
+                            <div class="card-body">
+                                <h5 class="card-title">Clase 3</h5>
+                                <p class="card-text">Descripción breve de la clase 3.</p>
+                                <a href="pagina-alumnos.html?classId=3" class="btn btn-info">Ver alumnos</a>
+                            </div>
+                            <div class="card-footer">
+                                <small>Última actualización: hace 10 min</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-         </div>
+        </div>
         <!--**********************************
             Content body end
         ***********************************-->
