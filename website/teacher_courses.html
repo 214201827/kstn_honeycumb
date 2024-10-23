@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>KeystoneCore - Página de información</title>
+    <title>KeystoneCore - Lista de cursos</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <!-- Custom Stylesheet -->
@@ -130,20 +130,21 @@
                     <li class="nav-label">Menú</li>
                     <li>
                         <a href="dashboard_teacher.html" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Página de inicio</span>
+                                <i class="fa fa-home menu-icon"></i><span class="nav-text">Página de inicio</span>
                         </a>
-
-                        <a href="dashboard_teacher.html" aria-expanded="false">
-                            <i class="icon-speedometer menu-icon"></i><span class="nav-text">Cursos</span>
+                    </li>
+                    <li>
+                        <a href="teacher_courses.html" aria-expanded="false">
+                              <i class="fa fa-book menu-icon"></i><span class="nav-text">Cursos</span>
                         </a>
-                        
+                    </li>    
                         <ul aria-expanded="false">
                             <!-- <li><a href="./index-2.html">Home 2</a></li> -->
                         </ul>
                         
                         <li>
-                            <a href="#" aria-expanded="false">
-                                <i class="icon-notebook menu-icon"></i><span class="nav-text">Configuracion</span>
+                            <a href="teacher_config.html" aria-expanded="false">
+                                <i class="fa fa-cog menu-icon"></i><span class="nav-text">Configuración</span>
                             </a>
                         </li>
                             
@@ -171,96 +172,53 @@
             Content body start
         ***********************************-->
         <div class="content-body">
-
-            <div class="row page-titles mx-0">
-                <div class="col p-md-0">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
-                    </ol>
-                </div>
-            </div>
-            <!-- row -->
-
-            
-
-
-
-
             <div class="container-fluid">
+                <!-- Encabezado -->
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <h1 class="text-center">Clases de Google Classroom</h1>
+                        <p class="text-center">Lista de clases que enseñas. Haz clic en una para ver los alumnos.</p>
+                    </div>
+                </div>
+        
                 <div class="row">
-                    <div class="col-12">
-                        <div class="card">
+                    <!-- Tarjeta 1 -->
+                    <div class="col-lg-4 col-md-6 mb-4"> <!-- Ajusta el tamaño según necesites -->
+                        <div class="card border-info">
                             <div class="card-body">
-                                <h4 class="card-title">Lista de usuarios</h4>
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-bordered zero-configuration">
-                                        <thead>
-                                            <tr>
-                                                <th>Nombre</th>
-                                                <th>Email</th>
-                                                <th>Estado</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td><img src="./images/avatar/4.jpg" class=" rounded-circle mr-3" alt="">Teacher 1</td>
-                                                <td>teacher1@keystone.edu.mx</td>
-                                                
-                                               
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i>Activo</td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/avatar/5.jpg" class=" rounded-circle mr-3" alt="">Teacher 2</td>
-                                                <td>teacher2@keystone.edu.mx</td>
-                                                
-                                                
-                                                <td><i class="fa fa-circle-o text-success  mr-2"></i>Activo</td>
-                                                
-                                            </tr>
-                                            <tr>
-                                                <td><img src="./images/avatar/6.jpg" class=" rounded-circle mr-3" alt="">Teacher 3</td>
-                                                <td>teacher3@keystone.edu.mx</td> <a href="#" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a>
-                                                
-                                                
-                                                <td><i class="fa fa-circle-o text-warning  mr-2"></i>Pendiente</td>
-
-                                                <td><a href="#" class="view" title="" data-toggle="tooltip" data-original-title="View"><i class="material-icons"></i></a></td> 
-                                               
-                                            </tr>
-                                            
-                                        </tbody>
-                                            
-                                    </table>
-                                </div>
+                                <h5 class="card-title">Clase 1</h5>
+                                <p class="card-text">Clase lista para generar reportes.</p>
+                                <a href="pagina-alumnos.html?classId=1" class="btn btn-info">Ver alumnos</a> <!-- Enlace a la página de alumnos -->
                             </div>
+                            
+                        </div>
+                    </div>
+        
+                    <!-- Tarjeta 2 -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card border-info">
+                            <div class="card-body">
+                                <h5 class="card-title">Clase 2</h5>
+                                <p class="card-text">Pendiente de revisar.</p>
+                                <a href="pagina-alumnos.html?classId=2" class="btn btn-info">Ver alumnos</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+        
+                    <!-- Tarjeta 3 -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card border-info">
+                            <div class="card-body">
+                                <h5 class="card-title">Clase 3</h5>
+                                <p class="card-text">Todos los reportes generados.</p>
+                                <a href="pagina-alumnos.html?classId=3" class="btn btn-info">Ver alumnos</a>
+                            </div>
+                           
                         </div>
                     </div>
                 </div>
             </div>
-
-            
-            
-
-            <!-- #/ container -->
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- #/ container -->
         </div>
         <!--**********************************
             Content body end
