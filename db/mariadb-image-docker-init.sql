@@ -98,6 +98,8 @@ CREATE TABLE `userCourses` (
   `userCoursesId` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `course` int(10) unsigned NOT NULL,
   `user` int(10) unsigned NOT NULL,
+  `comment` text DEFAULT NULL,
+  `commentStatus` ENUM('No comentado', 'Pre-aprobado', 'Aprobado', 'No aprobado') NOT NULL DEFAULT 'No comentado',
   PRIMARY KEY (`userCoursesId`),
   KEY `userCourses_courses_FK` (`course`),
   KEY `userCourses_usuarios_FK` (`user`),
@@ -106,7 +108,10 @@ CREATE TABLE `userCourses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 
--- Cortar aquí si no funciona.
+
+
+
+
 
 DELIMITER ;;
 

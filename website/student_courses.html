@@ -176,56 +176,68 @@
                 <!-- Encabezado -->
                 <div class="row mb-4">
                     <div class="col-lg-12">
-                        <h1 class="text-center">Clases de Google Classroom</h1>
-                        <p class="text-center">Lista de clases que enseñas. Haz clic en una para ver los alumnos.</p>
+                        <h1 class="text-center">Alumnos de la Clase: [Nombre de la Clase]</h1>
+                        <p class="text-center">Lista de alumnos inscritos en esta clase. Gestiona los comentarios y genera reportes.</p>
                     </div>
                 </div>
         
                 <div class="row">
-                    <!-- Tarjeta 1 -->
-                    <div class="col-lg-4 col-md-6 mb-4"> <!-- Ajusta el tamaño según necesites -->
-                        <div class="card border-info">
+                    <!-- Suponiendo que tienes una lista de alumnos, puedes iterar sobre ella -->
+                    <!-- Ejemplo de tarjeta de alumno -->
+                    <!-- Reemplaza el siguiente bloque por un bucle en tu lenguaje de servidor o JavaScript -->
+                    
+                    <!-- Alumno 1 -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card border-secondary">
                             <div class="card-body">
-                                <h5 class="card-title">Clase 1</h5>
-                                <p class="card-text">Clase lista para generar reportes.</p>
-                                <a href="student_courses.html?classId=1" class="btn btn-info">Ver alumnos</a> <!-- Enlace a la página de alumnos -->
+                                <h5 class="card-title">Nombre del Alumno 1</h5>
+                                <p class="card-text">Estado del comentario: <strong>Sin comentario</strong></p>
+                                <!-- Botones según el estado -->
+                                <button class="btn btn-primary" onclick="abrirModalComentario(1)">Agregar Comentario</button>
                             </div>
-                            
                         </div>
                     </div>
         
-                    <!-- Tarjeta 2 -->
+                    <!-- Alumno 2 -->
                     <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card border-info">
+                        <div class="card border-success">
                             <div class="card-body">
-                                <h5 class="card-title">Clase 2</h5>
-                                <p class="card-text">Pendiente de revisar.</p>
-                                <a href="student_courses.html?classId=2" class="btn btn-info">Ver alumnos</a>
+                                <h5 class="card-title">Nombre del Alumno 2</h5>
+                                <p class="card-text">Estado del comentario: <strong>Aprobado</strong></p>
+                                <!-- Botones según el estado -->
+                                <button class="btn btn-info" onclick="verComentario(2)">Ver Comentario</button>
+                                <button class="btn btn-success" onclick="generarReporte(2)">Generar Reporte</button>
                             </div>
-                            
                         </div>
                     </div>
         
-                    <!-- Tarjeta 3 -->
+                    <!-- Alumno 3 -->
                     <div class="col-lg-4 col-md-6 mb-4">
-                        <div class="card border-info">
+                        <div class="card border-warning">
                             <div class="card-body">
-                                <h5 class="card-title">Clase 3</h5>
-                                <p class="card-text">Todos los reportes generados.</p>
-                                <a href="student_courses.html?classId=3" class="btn btn-info">Ver alumnos</a>
-                            </div>
-                           
+                                <h5 class="card-title">Nombre del Alumno 3</h5>
+                                <p class="card-text">Estado del comentario: <strong>Pre-aprobado</strong></p>
+                                <!-- Botones según el estado -->
+                                <button class="btn btn-warning" onclick="editarComentario(3)">Editar Comentario</button>                            </div>
                         </div>
                     </div>
+        
+                    <!-- Alumno 4 -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card border-danger">
+                            <div class="card-body">
+                                <h5 class="card-title">Nombre del Alumno 4</h5>
+                                <p class="card-text">Estado del comentario: <strong>No aprobado</strong></p>
+                                <!-- Botones según el estado -->
+                                <button class="btn btn-danger" onclick="editarComentario(4)">Editar Comentario</button>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <!-- Continúa con más alumnos... -->
                 </div>
             </div>
         </div>
-
-
-
-
-<!-- Modals -->
-
 
 <!-- Modal para Agregar/Editar Comentario -->
 <div class="modal fade" id="modalComentario" tabindex="-1" role="dialog" aria-labelledby="modalComentarioLabel" aria-hidden="true">
@@ -256,8 +268,7 @@
   </div>
   
 
-
-
+        
         <!--**********************************
             Content body end
         ***********************************-->
@@ -283,62 +294,62 @@
         Scripts
     ***********************************-->
 
-<script>
-    function abrirModalComentario(idAlumno) {
-    // Limpiar el formulario
-    document.getElementById('formComentario').reset();
-    // Establecer el id del alumno
-    document.getElementById('idAlumno').value = idAlumno;
-    // Cambiar el título del modal
-    document.getElementById('modalComentarioLabel').innerText = 'Agregar Comentario';
-    // Mostrar el modal
-    $('#modalComentario').modal('show');
-}
+    <script>
+        function abrirModalComentario(idAlumno) {
+            // Limpiar el formulario
+            document.getElementById('formComentario').reset();
+            // Establecer el id del alumno
+            document.getElementById('idAlumno').value = idAlumno;
+            // Cambiar el título del modal
+            document.getElementById('modalComentarioLabel').innerText = 'Agregar Comentario';
+            // Mostrar el modal
+            $('#modalComentario').modal('show');
+        }
 
-function editarComentario(idAlumno) {
-    // Obtener el comentario existente (puedes hacer una llamada AJAX para obtenerlo)
-    // Por simplicidad, supongamos que lo tenemos en una variable
-    var comentarioExistente = "Este es el comentario existente.";
-    // Establecer el id del alumno
-    document.getElementById('idAlumno').value = idAlumno;
-    // Llenar el textarea con el comentario existente
-    document.getElementById('comentario').value = comentarioExistente;
-    // Cambiar el título del modal
-    document.getElementById('modalComentarioLabel').innerText = 'Editar Comentario';
-    // Mostrar el modal
-    $('#modalComentario').modal('show');
-}
+        function editarComentario(idAlumno) {
+            // Obtener el comentario existente (puedes hacer una llamada AJAX para obtenerlo)
+            // Por simplicidad, supongamos que lo tenemos en una variable
+            var comentarioExistente = "Este es el comentario existente.";
+            // Establecer el id del alumno
+            document.getElementById('idAlumno').value = idAlumno;
+            // Llenar el textarea con el comentario existente
+            document.getElementById('comentario').value = comentarioExistente;
+            // Cambiar el título del modal
+            document.getElementById('modalComentarioLabel').innerText = 'Editar Comentario';
+            // Mostrar el modal
+            $('#modalComentario').modal('show');
+        }
 
-function aprobarComentario(idAlumno) {
-    // Lógica para aprobar el comentario (puede ser una llamada AJAX al servidor)
-    alert('Comentario del alumno ' + idAlumno + ' aprobado.');
-    // Actualizar la interfaz según sea necesario
-}
+        /*function aprobarComentario(idAlumno) {
+            // Lógica para aprobar el comentario (puede ser una llamada AJAX al servidor)
+            alert('Comentario del alumno ' + idAlumno + ' aprobado.');
+            // Actualizar la interfaz según sea necesario
+        }*/
 
-function generarReporte(idAlumno) {
-    // Lógica para generar el reporte (puede ser una llamada al servidor o descarga directa)
-    alert('Generando reporte para el alumno ' + idAlumno + '.');
-    // Puede redirigir o iniciar una descarga
-}
+        function generarReporte(idAlumno) {
+            // Lógica para generar el reporte (puede ser una llamada al servidor o descarga directa)
+            alert('Generando reporte para el alumno ' + idAlumno + '.');
+            // Puede redirigir o iniciar una descarga
+        }
 
-function verComentario(idAlumno) {
-    // Lógica para ver el comentario (puede ser un modal o redirección)
-    alert('Mostrando comentario del alumno ' + idAlumno + '.');
-}
+        function verComentario(idAlumno) {
+            // Lógica para ver el comentario (puede ser un modal o redirección)
+            alert('Mostrando comentario del alumno ' + idAlumno + '.');
+        }
 
-// Manejo del envío del formulario de comentario
-document.getElementById('formComentario').addEventListener('submit', function(event) {
-    event.preventDefault();
-    var idAlumno = document.getElementById('idAlumno').value;
-    var comentario = document.getElementById('comentario').value;
-    // Lógica para guardar el comentario (puede ser una llamada AJAX al servidor)
-    alert('Comentario guardado para el alumno ' + idAlumno + '.');
-    // Cerrar el modal
-    $('#modalComentario').modal('hide');
-    // Actualizar la interfaz según sea necesario
-});
+        // Manejo del envío del formulario de comentario
+        document.getElementById('formComentario').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var idAlumno = document.getElementById('idAlumno').value;
+            var comentario = document.getElementById('comentario').value;
+            // Lógica para guardar el comentario (puede ser una llamada AJAX al servidor)
+            alert('Comentario guardado para el alumno ' + idAlumno + '.');
+            // Cerrar el modal
+            $('#modalComentario').modal('hide');
+            // Actualizar la interfaz según sea necesario
+        });
 
-</script>
+    </script>
 
 
 
