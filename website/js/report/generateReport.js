@@ -1,0 +1,57 @@
+// Datos de entrada
+const studentInfo = {
+    lastName: "Last Names",
+    firstName: "Names",
+    email: "student@students.keystone.edu.mx",
+    courseName: "Desarrollo Emocional - 1st A -",
+    professorName: "Professor Last Name",
+    professorEmail: "professor@keystone.edu.mx",
+    overallGrade: "99.5%"
+};
+
+const assignments = [
+    { date: "2023-09-18", title: "Derechos y obligaciones de los niños", mark: "10/10", percent: "100%", status: "Completed" },
+    { date: "2023-09-21", title: "Derecho y obligaciones de los niños (sesión 2)", mark: "10/10", percent: "100%", status: "Completed" },
+    { date: "2023-09-25", title: "Comentarios positivos/ respeto sobre su cuerpo", mark: "10/10", percent: "100%", status: "Completed" },
+    // Agrega más tareas aquí según sea necesario...
+];
+
+// Función para generar el reporte
+function generateReport() {
+    const container = document.getElementById("report-container");
+
+    // Información del estudiante y del curso
+    container.innerHTML = `
+        <h2>${studentInfo.courseName}</h2>
+        <p><strong>Student:</strong> ${studentInfo.lastName}, ${studentInfo.firstName} (${studentInfo.email})</p>
+        <p><strong>Professor:</strong> ${studentInfo.professorName} (${studentInfo.professorEmail})</p>
+        <p><strong>Overall Grade:</strong> ${studentInfo.overallGrade}</p>
+        <hr>
+        <table border="1">
+            <tr>
+                <th>Date</th>
+                <th>Assignment</th>
+                <th>Mark</th>
+                <th>Percent</th>
+                <th>Status</th>
+            </tr>
+    `;
+
+    // Agrega cada tarea en una fila de la tabla
+    assignments.forEach(assignment => {
+        container.innerHTML += `
+            <tr>
+                <td>${assignment.date}</td>
+                <td>${assignment.title}</td>
+                <td>${assignment.mark}</td>
+                <td>${assignment.percent}</td>
+                <td>${assignment.status}</td>
+            </tr>
+        `;
+    });
+
+    container.innerHTML += `</table>`;
+}
+
+// Ejecutar la función al cargar la página
+window.onload = generateReport;
