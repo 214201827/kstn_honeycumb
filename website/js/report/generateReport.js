@@ -1,3 +1,5 @@
+
+
 // Datos de entrada
 const studentInfo = {
     lastName: "Last Names",
@@ -20,26 +22,29 @@ const assignments = [
 function generateReport() {
     const container = document.getElementById("report-container");
 
-    // Información del estudiante y del curso
-    container.innerHTML = `
+    // Construir el HTML del reporte
+    let reportHtml = `
         <h2>${studentInfo.courseName}</h2>
         <p><strong>Student:</strong> ${studentInfo.lastName}, ${studentInfo.firstName} (${studentInfo.email})</p>
         <p><strong>Professor:</strong> ${studentInfo.professorName} (${studentInfo.professorEmail})</p>
         <p><strong>Overall Grade:</strong> ${studentInfo.overallGrade}</p>
         <hr>
-        <table border="1">
-            <tr>
-                <th>Date</th>
-                <th>Assignment</th>
-                <th>Mark</th>
-                <th>Percent</th>
-                <th>Status</th>
-            </tr>
+        <table border="1" cellspacing="0" cellpadding="8">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Assignment</th>
+                    <th>Mark</th>
+                    <th>Percent</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
     `;
 
-    // Agrega cada tarea en una fila de la tabla
+    // Agregar cada tarea en una fila de la tabla
     assignments.forEach(assignment => {
-        container.innerHTML += `
+        reportHtml += `
             <tr>
                 <td>${assignment.date}</td>
                 <td>${assignment.title}</td>
@@ -50,7 +55,13 @@ function generateReport() {
         `;
     });
 
-    container.innerHTML += `</table>`;
+    reportHtml += `
+            </tbody>
+        </table>
+    `;
+
+    // Insertar el HTML en el contenedor
+    container.innerHTML = reportHtml;
 }
 
 // Ejecutar la función al cargar la página
