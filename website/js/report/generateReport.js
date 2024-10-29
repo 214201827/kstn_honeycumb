@@ -18,6 +18,8 @@ const assignments = [
     // Agrega más tareas aquí según sea necesario...
 ];
 
+const comentario = "Fino, señores";
+
 // Función para generar el reporte
 function generateReport() {
     const container = document.getElementById("report-container");
@@ -63,7 +65,20 @@ function generateReport() {
     reportHtml += `
             </tbody>
         </table>
+
+
+        <table border="1" cellspacing="0" cellpadding="8">
+            <tr>
+                <th>Comentario</th>
+            </tr>
+            <tr>
+                ${comentario}
+            </tr>
+
+
     `;
+
+    
 
     // Insertar el HTML en el contenedor
     container.innerHTML = reportHtml;
