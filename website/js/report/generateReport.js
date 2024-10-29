@@ -27,10 +27,10 @@ function generateReport() {
     // Construir el HTML del reporte
     let reportHtml = `
     <div>
-        <img src="images/text-keystone.png" style="width: auto; height: 50px; filter: invert(100%);">
-        </div>
+        <img src="images/text-keystone.png" style="float: left; width: auto; height: 50px; filter: invert(100%); padding-right: 20px">
+        <h2 style="padding: 10px;">${studentInfo.courseName}</h2>
+    </div>
         
-        <h2>${studentInfo.courseName}</h2>
     <p><strong>Student:</strong> ${studentInfo.lastName}, ${studentInfo.firstName} (${studentInfo.email})</p>
     <p><strong>Professor:</strong> ${studentInfo.professorName} (${studentInfo.professorEmail})</p>
     <p><strong>Overall Grade:</strong> ${studentInfo.overallGrade}</p>
