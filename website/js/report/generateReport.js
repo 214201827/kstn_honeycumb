@@ -71,9 +71,13 @@ function generateReport() {
             <tr>
                 <th>Comentario</th>
             </tr>
+            <tbody>
             <tr>
-                ${comentario}
+                <td>${comentario}</td>
             </tr>
+            </tbody>
+
+        </table>
 
 
     `;
