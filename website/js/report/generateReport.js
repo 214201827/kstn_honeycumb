@@ -24,11 +24,19 @@ function generateReport() {
 
     // Construir el HTML del reporte
     let reportHtml = `
+    <div style="display: inline-block;  padding-right: 5%;">
         <h2>${studentInfo.courseName}</h2>
         <p><strong>Student:</strong> ${studentInfo.lastName}, ${studentInfo.firstName} (${studentInfo.email})</p>
         <p><strong>Professor:</strong> ${studentInfo.professorName} (${studentInfo.professorEmail})</p>
         <p><strong>Overall Grade:</strong> ${studentInfo.overallGrade}</p>
-        <hr>
+    </div>
+    <div style="display: inline-block;">
+        <img src="images/keystone_logo.png" style="width: auto; height: 145px; float: right;">
+    </div>
+    <div style="display: inline-block;">
+        <img src="images/text-keystone.png" style="width: auto; height: 145px; filter: invert(100%); float: right;">
+    </div>
+            <hr>
         <table border="1" cellspacing="0" cellpadding="8">
             <thead>
                 <tr>
@@ -62,6 +70,7 @@ function generateReport() {
 
     // Insertar el HTML en el contenedor
     container.innerHTML = reportHtml;
+    console.log(reportHtml);
 }
 
 // Ejecutar la función al cargar la página
