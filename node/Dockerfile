@@ -9,7 +9,7 @@ COPY package*.json ./
 
 # Instalar las dependencias del proyecto
 RUN npm install
-RUN npm install mysql2 cors bcrypt express body-parser cookie-parser googleapis
+RUN npm install mysql2 cors bcrypt express body-parser cookie-parser googleapis cookie-parser
 
 # Copiar el resto de los archivos del proyecto
 COPY . .
@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 3000
 
 # Comando para ejecutar el servidor
-CMD ["node", "server.js"]
+CMD ["node", "server.js", "login.js", "usuarios.js"]
