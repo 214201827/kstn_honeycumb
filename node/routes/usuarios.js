@@ -3,12 +3,12 @@ const router = express.Router();
 const usuariosController = require('../controllers/userController.js');
 
 // Obtener todos los usuarios
-router.get('/usuarios', usuariosController.obtenerUsuarios);
+router.get('/', usuariosController.obtenerUsuarios);
 
 // Crear un nuevo usuario
-router.post('/crearUsuario', usuariosController.crearUsuario);
+router.post('/crear', usuariosController.crearUsuario);
 
 // Desactivar un usuario por email
-router.put('/desactivarUsuario', usuariosController.desactivarUsuario);
+router.put('/desactivar', usuariosController.desactivarUsuario);
 
 module.exports = router;

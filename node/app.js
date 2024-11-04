@@ -12,7 +12,7 @@ const usuariosRoutes = require('./routes/usuarios');
 const backupRoutes = require('./routes/backup');
 
 app.use('/usuarios', usuariosRoutes);
-app.use('/backup', backupRoutes);
+app.use('/download-backup', backupRoutes);
 
 // Iniciar el servidor
 app.listen(port, () => {
