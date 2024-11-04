@@ -3,7 +3,7 @@ const path = require('path');
 
 // Descargar el respaldo más reciente
 exports.descargarRespaldo = (req, res) => {
-  const backupDir = '/backups';
+  const backupDir = './backups';
 
   fs.readdir(backupDir, (err, files) => {
     if (err) {
