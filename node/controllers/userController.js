@@ -1,5 +1,8 @@
 const db = require('../config/db');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
+
 
 // Obtener todos los usuarios
 exports.obtenerUsuarios = (req, res) => {
@@ -80,6 +83,59 @@ exports.desactivarUsuario = (req, res) => {
       }
 
       res.status(200).json({ message: 'Usuario desactivado exitosamente' });
+    });
+  });
+};
+
+
+
+// Login con usuario y contraseña
+
+// Iniciar sesión
+exports.loginUsuario = (req, res) => {
+  const { email, password } = req.body;
+
+  // Validar campos requeridos
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Email y contraseña son requeridos' });
+  }
+
+  // Buscar el usuario por email
+  const query = `SELECT * FROM usuarios WHERE email = ? AND status = 'Activo'`;
+
+  db.query(query, [email], async (err, results) => {
+    if (err) {
+      console.error('Error al buscar el usuario:', err);
+      return res.status(500).json({ error: 'Error al buscar el usuario' });
+    }
+
+    if (results.length === 0) {
+      return res.status(401).json({ error: 'Credenciales inválidas' });
+    }
+
+    const usuario = results[0];
+
+    // Comparar la contraseña
+    const validPassword = await bcrypt.compare(password, usuario.password_hash);
+
+    if (!validPassword) {
+      return res.status(401).json({ error: 'Credenciales inválidas' });
+    }
+
+    // Generar el token JWT
+    const token = jwt.sign(
+      {
+        userId: usuario.userId,
+        email: usuario.email,
+        userType: usuario.userType,
+      },
+      process.env.JWT_SECRET || 'tu_clave_secreta_super_segura',
+      { expiresIn: '1h' }
+    );
+
+    res.status(200).json({
+      message: 'Inicio de sesión exitoso',
+      token,
     });
   });
 };
