@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 
+
 // Obtener todos los usuarios
 exports.obtenerUsuarios = (req, res) => {
   const query = `SELECT names, lastName, email, status, userType FROM usuarios`;
@@ -85,6 +86,7 @@ exports.desactivarUsuario = (req, res) => {
     });
   });
 };
+
 
 
 // Login con usuario y contraseña
