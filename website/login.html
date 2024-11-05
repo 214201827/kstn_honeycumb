@@ -45,19 +45,19 @@
                                 <img src="https://images.squarespace-cdn.com/content/v1/63a74f618b617d57d617916e/43a7a261-7499-4d4e-b969-6290ac2b3b39/Logotipo-Keystone-01.png?format=1500w" alt="Keystone Logo" width="174" height="148">
                             </div>
         
-                                <form class="mt-5 mb-5 login-input">
-                                    <div class="form-group">
-                                        <input type="email" name="email" class="form-control" placeholder="Email" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
-                                    </div>
-                                    <button class="btn login-form__btn submit w-100" name="submit">Iniciar sesión</button>
-                                    <hr>
-                                    <div class="row justify-content-center h-100">
-                                        <button href="javascript:void()" class="btn gradient-4 btn-lg border-0 btn-rounded px-5" onlick="alert('Iniciaste con Google.')">Iniciar con Google</>
-                                    </div>
-                                </form>
+                            <form class="mt-5 mb-5 login-input" action="http://localhost:3000/usuarios/login" method="POST">
+                                <div class="form-group">
+                                    <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" class="form-control" placeholder="Contraseña" required>
+                                </div>
+                                <button type="submit" class="btn login-form__btn submit w-100">Iniciar sesión</button>
+
+                                 <!-- Mensaje de error -->
+                                 <div id="error-message" style="color: red; font-size: normal; display: none;">Credenciales inválidas</div>
+
+                            </form>
 
                             </div>
                         </div>
@@ -73,6 +73,44 @@
     <!--**********************************
         Scripts
     ***********************************-->
+
+
+
+    <script>
+        document.querySelector('form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            
+            const email = event.target.email.value;
+            const password = event.target.password.value;
+    
+            const response = await fetch('http://localhost:3000/usuarios/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+    
+            const result = await response.json();
+    
+            if (response.ok) {
+                localStorage.setItem('token', result.token);
+                alert('Inicio de sesión exitoso');
+                // Redirige o realiza otra acción después del login
+            } else {
+                const errorMessage = document.getElementById('error-message');
+                if (result.error === "Credenciales inválidas") {
+                    errorMessage.style.display = 'block';
+                } else {
+                    errorMessage.style.display = 'none';
+                    alert(result.error || 'Error en el inicio de sesión');
+                }
+            }
+        });
+    </script>
+    
+
+
+
+
     <script src="plugins/common/common.min.js"></script>
     <script src="js/custom.min.js"></script>
     <script src="js/settings.js"></script>
