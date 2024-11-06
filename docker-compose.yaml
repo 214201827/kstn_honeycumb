@@ -17,7 +17,6 @@ services:
       dockerfile: Dockerfile
     container_name: honeycumb-back
     environment:
-      - JWT_SECRET={$JWT_SECRET}
       - DB_HOST=db
       - DB_USER=keystone
       - DB_PASSWORD=keystone
