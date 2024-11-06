@@ -13,7 +13,12 @@ router.post('/crear', usuariosController.crearUsuario);
 // Desactivar un usuario por email
 router.put('/desactivar', usuariosController.desactivarUsuario);
 
-
 // Iniciar sesión
 router.post('/login', usuariosController.loginUsuario);
+
+
+
+
+
+
 module.exports = router;
