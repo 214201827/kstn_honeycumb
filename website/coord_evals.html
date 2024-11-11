@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>KeystoneCore - Página de maestro</title>
+    <title>Keystone Honeycumb - Lista de cursos</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -165,7 +165,6 @@
                 </ul>
             </div>
         </div>
-        
         <!--**********************************
             Sidebar end
         ***********************************-->
@@ -173,108 +172,87 @@
         <!--**********************************
             Content body start
         ***********************************-->
-        
         <div class="content-body">
-
-            <div class="container-fluid mt-3">
-
+            <div class="container-fluid">
+                <!-- Encabezado -->
+                <div class="row mb-4">
+                    <div class="col-lg-12">
+                        <h1 class="text-center">Maestros a su cargo</h1>
+                        <p class="text-center">Lista de profesores a su cargo. Haz clic en una para ver los cursos a su cargo.</p>
+                    </div>
+                </div>
+        
                 <div class="row">
-
-                    <div class="col-xl-3 col-lg-6 col-sm-6 col-xxl-6">
-
-                        <div class="card">
-
+                    <!-- Tarjeta 1 -->
+                    <div class="col-lg-4 col-md-6 mb-4"> <!-- Ajusta el tamaño según necesites -->
+                        <div class="card border-info">
                             <div class="card-body">
-                                <h4 class="card-title">Actividad</h4>
-                                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 390px;"><div id="activity" style="overflow: hidden; width: auto; height: 390px;">
-                                    <div class="media border-bottom-1 pt-3 pb-3">
-                                        <img width="35" src="./images/avatar/1.jpg" class="mr-3 rounded-circle">
-                                        <div class="media-body">
-                                            <h5>Received New Order</h5>
-                                            <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                                        </div><span class="text-muted ">April 24, 2018</span>
-                                    </div>
-                                    <div class="media border-bottom-1 pt-3 pb-3">
-                                        <img width="35" src="./images/avatar/2.jpg" class="mr-3 rounded-circle">
-                                        <div class="media-body">
-                                            <h5>iPhone develered</h5>
-                                            <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                                        </div><span class="text-muted ">April 24, 2018</span>
-                                    </div>
-                                    <div class="media border-bottom-1 pt-3 pb-3">
-                                        <img width="35" src="./images/avatar/2.jpg" class="mr-3 rounded-circle">
-                                        <div class="media-body">
-                                            <h5>3 Order Pending</h5>
-                                            <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                                        </div><span class="text-muted ">April 24, 2018</span>
-                                    </div>
-                                    <div class="media border-bottom-1 pt-3 pb-3">
-                                        <img width="35" src="./images/avatar/2.jpg" class="mr-3 rounded-circle">
-                                        <div class="media-body">
-                                            <h5>Join new Manager</h5>
-                                            <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                                        </div><span class="text-muted ">April 24, 2018</span>
-                                    </div>
-                                    <div class="media border-bottom-1 pt-3 pb-3">
-                                        <img width="35" src="./images/avatar/2.jpg" class="mr-3 rounded-circle">
-                                        <div class="media-body">
-                                            <h5>Branch open 5 min Late</h5>
-                                            <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                                        </div><span class="text-muted ">April 24, 2018</span>
-                                    </div>
-                                    <div class="media border-bottom-1 pt-3 pb-3">
-                                        <img width="35" src="./images/avatar/2.jpg" class="mr-3 rounded-circle">
-                                        <div class="media-body">
-                                            <h5>New support ticket received</h5>
-                                            <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                                        </div><span class="text-muted ">April 24, 2018</span>
-                                    </div>
-                                    <div class="media pt-3 pb-3">
-                                        <img width="35" src="./images/avatar/3.jpg" class="mr-3 rounded-circle">
-                                        <div class="media-body">
-                                            <h5>Facebook Post 30 Comments</h5>
-                                            <p class="mb-0">I shared this on my fb wall a few months back,</p>
-                                        </div><span class="text-muted ">April 24, 2018</span>
-                                    </div>
-                                </div><div class="slimScrollBar" style="background: transparent; width: 5px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 213.025px;"></div><div class="slimScrollRail" style="width: 5px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+                                <h5 class="card-title">Maestro 1</h5>
+                                <a href="student_courses.html?classId=1" class="btn btn-info">Ver alumnos</a> <!-- Enlace a la página de alumnos -->
                             </div>
-
+                            
                         </div>
-
                     </div>
-
-                    
-                </div>
-
-            </div>
-
-
-            <div class="col-xxl-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">SKILL BARS</h4>
-                        <h5 class="mt-3">Photoshop <span class="float-right">85%</span></h5>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-danger wow  progress-" style="width: 85%;" role="progressbar"><span class="sr-only">60% Complete</span>
+        
+                    <!-- Tarjeta 2 -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card border-info">
+                            <div class="card-body">
+                                <h5 class="card-title">Maestro 2</h5>
+                                <a href="student_courses.html?classId=2" class="btn btn-info">Ver alumnos</a>
                             </div>
+                            
                         </div>
-                        <h5 class="mt-3">Code editor <span class="float-right">90%</span></h5>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-info wow  progress-" style="width: 90%;" role="progressbar"><span class="sr-only">60% Complete</span>
+                    </div>
+        
+                    <!-- Tarjeta 3 -->
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="card border-info">
+                            <div class="card-body">
+                                <h5 class="card-title">Maestro 3</h5>
+                                <a href="student_courses.html?classId=3" class="btn btn-info">Ver alumnos</a>
                             </div>
-                        </div>
-                        <h5 class="mt-3">Illustrator <span class="float-right">65%</span></h5>
-                        <div class="progress" style="height: 9px">
-                            <div class="progress-bar bg-success wow  progress-" style="width: 65%;" role="progressbar"><span class="sr-only">60% Complete</span>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
         </div>
+
+
+
+
+<!-- Modals -->
+
+
+<!-- Modal para Agregar/Editar Comentario -->
+<div class="modal fade" id="modalComentario" tabindex="-1" role="dialog" aria-labelledby="modalComentarioLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <form id="formComentario">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalComentarioLabel">Agregar/Editar Comentario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <input type="hidden" id="idAlumno" name="idAlumno">
+              <div class="form-group">
+                  <label for="comentario">Comentario</label>
+                  <textarea class="form-control" id="comentario" name="comentario" rows="4" required></textarea>
+              </div>
+              <!-- Puedes agregar más campos si es necesario -->
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar Comentario</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
 
 
 
@@ -302,6 +280,66 @@
     <!--**********************************
         Scripts
     ***********************************-->
+
+<script>
+    function abrirModalComentario(idAlumno) {
+    // Limpiar el formulario
+    document.getElementById('formComentario').reset();
+    // Establecer el id del alumno
+    document.getElementById('idAlumno').value = idAlumno;
+    // Cambiar el título del modal
+    document.getElementById('modalComentarioLabel').innerText = 'Agregar Comentario';
+    // Mostrar el modal
+    $('#modalComentario').modal('show');
+}
+
+function editarComentario(idAlumno) {
+    // Obtener el comentario existente (puedes hacer una llamada AJAX para obtenerlo)
+    // Por simplicidad, supongamos que lo tenemos en una variable
+    var comentarioExistente = "Este es el comentario existente.";
+    // Establecer el id del alumno
+    document.getElementById('idAlumno').value = idAlumno;
+    // Llenar el textarea con el comentario existente
+    document.getElementById('comentario').value = comentarioExistente;
+    // Cambiar el título del modal
+    document.getElementById('modalComentarioLabel').innerText = 'Editar Comentario';
+    // Mostrar el modal
+    $('#modalComentario').modal('show');
+}
+
+function aprobarComentario(idAlumno) {
+    // Lógica para aprobar el comentario (puede ser una llamada AJAX al servidor)
+    alert('Comentario del alumno ' + idAlumno + ' aprobado.');
+    // Actualizar la interfaz según sea necesario
+}
+
+function generarReporte(idAlumno) {
+    // Lógica para generar el reporte (puede ser una llamada al servidor o descarga directa)
+    alert('Generando reporte para el alumno ' + idAlumno + '.');
+    // Puede redirigir o iniciar una descarga
+}
+
+function verComentario(idAlumno) {
+    // Lógica para ver el comentario (puede ser un modal o redirección)
+    alert('Mostrando comentario del alumno ' + idAlumno + '.');
+}
+
+// Manejo del envío del formulario de comentario
+document.getElementById('formComentario').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var idAlumno = document.getElementById('idAlumno').value;
+    var comentario = document.getElementById('comentario').value;
+    // Lógica para guardar el comentario (puede ser una llamada AJAX al servidor)
+    alert('Comentario guardado para el alumno ' + idAlumno + '.');
+    // Cerrar el modal
+    $('#modalComentario').modal('hide');
+    // Actualizar la interfaz según sea necesario
+});
+
+</script>
+
+
+
     <script src="plugins/common/common.min.js"></script>
     <script src="js/custom.min.js"></script>
     <script src="js/settings.js"></script>

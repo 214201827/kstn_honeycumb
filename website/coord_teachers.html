@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>KeystoneCore - Página de información</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Custom Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/custom-assets/floating-add-button.css">
+
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <!--**********************************
+            Nav header start
+        ***********************************-->
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="dashboard_admin.html">
+                    <b class="logo-abbr"><img src="images/keystone-isotipo.png" alt="" width="25" height="19"> </b>
+                    <span class="logo-compact"><img src="./images/keystone-isotipo.png" alt=""></span>
+                    <span class="brand-title">
+                        <img src="images/text-keystone.png" alt="" width="130.5" height="30">
+                    </span>
+                </a>
+            </div>
+        </div>
+        <!--**********************************
+            Nav header end
+        ***********************************-->
+
+        <!--**********************************
+            Header start
+        ***********************************-->
+
+
+        <div class="header">
+            <div class="header-content clearfix">
+
+                <div class="nav-control">
+                    <div class="hamburger">
+                        <span class="toggle-icon"><i class="icon-menu"></i></span>
+                    </div>
+                </div>
+
+
+
+                <div class="header-right">
+                    <ul class="clearfix">
+
+                    <!-- Menú de usuario -->
+
+                        <li class="icons dropdown d-none d-md-flex">
+
+                        <!-- Selector de lenguaje -->
+
+                            <!--a href="javascript:void(0)" class="log-user"  data-toggle="dropdown">
+                                <span>English</span>  <i class="fa fa-angle-down f-s-14" aria-hidden="true"></i>
+                            </a-->
+                            <!--div class="drop-down dropdown-language animated fadeIn  dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+                                        <li><a href="javascript:void()">English</a></li>
+                                        <li><a href="javascript:void()">Dutch</a></li>
+                                    </ul>
+                                </div>
+                            </div-->
+                        </li>
+                        <li class="icons dropdown">
+                            <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
+                                <span class="activity active"></span>
+                                <img src="images/user/1.png" height="40" width="40" alt="">
+                            </div>
+                            <div class="drop-down dropdown-profile   dropdown-menu">
+                                <div class="dropdown-content-body">
+                                    <ul>
+
+
+                                        <!-- Configuración de perfil -->
+                                        <!--li>
+                                            <a href="app-profile.html"><i class="icon-user"></i> <span>Profile</span></a>
+                                        </li-->
+
+
+                                        <!--hr class="my-2"-->
+                                        <!-- Opción para cerrar sesión -->
+                                        <li><a href="page-login.html"><i class="icon-key"></i> <span>Cerrar sesión</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--**********************************
+            Header end ti-comment-alt
+        ***********************************-->
+
+        <!--**********************************
+            Sidebar start
+        ***********************************-->
+        <div class="nk-sidebar">
+            <div class="nk-nav-scroll">
+                <ul class="metismenu" id="menu">
+                    <li class="nav-label">Menú</li>
+                    <li>
+                        <a href="dashboard_coord.html" aria-expanded="false">
+                            <i class="fa fa-home menu-icon"></i><span class="nav-text">Página de inicio</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="coord_teachers.html" aria-expanded="false">
+                            <i class="fa fa-book menu-icon"></i><span class="nav-text">Maestros</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="coord_evals.html" aria-expanded="false">
+                            <i class="fa fa-book menu-icon"></i><span class="nav-text">Evaluaciones</span>
+                        </a>
+                    </li>
+                        
+                    
+                    <li>
+                        <a href="coord_config.html" aria-expanded="false">
+                            <i class="fa fa-cog menu-icon"></i><span class="nav-text">Configuración</span>
+                        </a>
+                    </li>
+                            
+                                                  
+        
+                        </li>
+        
+                    </li>
+                                                          
+                </ul>
+            </div>
+        </div>
+        <!--**********************************
+            Sidebar end
+        ***********************************-->
+
+        <!--**********************************
+            Content body start
+        ***********************************-->
+        <div class="content-body">
+
+            <div class="row page-titles mx-0">
+                <div class="col p-md-0">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0)">Home</a></li>
+                    </ol>
+                </div>
+            </div>
+            <!-- row -->
+
+            
+
+
+
+
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">Lista de usuarios</h4>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-bordered zero-configuration">
+                                        <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Email</th>
+                                                <th>Rol</th>
+                                                <th>Estado</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tabla-usuarios">
+                                            <!-- Aquí se agregarán las filas dinámicamente -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="fab-container">
+                <button class="fab-button button-success btn-primary" data-toggle="modal" data-target="#addUserModal">
+                    <i class="fa fa-plus"></i> <!-- Icono de Material Design -->
+                </button>
+            </div>
+            
+            <!-- Modal para agregar usuario -->
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addUserModalLabel">Agregar Usuario</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <!-- Formulario para agregar un nuevo usuario -->
+          <form id="addUserForm">
+            <div class="form-group">
+              <label for="username">Nombre(s)</label>
+              <input type="text" class="form-control" id="username" placeholder="Nombre(s)" required>
+            </div>
+            <div class="form-group">
+              <label for="lastnames">Apellidos</label>
+              <input type="text" class="form-control" id="lastnames" placeholder="Apellidos(s)" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Correo electrónico</label>
+              <input type="email" class="form-control" id="email" placeholder="Ingresa correo electrónico" required>
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input type="password" class="form-control" id="password" placeholder="Ingresa la contraseña" required>
+            </div>
+            <div class="form-group">
+              <label for="usertype">Tipo de usuario</label>
+              <select class="form-control" id="usertype" required>
+                <option>Administrador</option>
+                <option>Profesor</option>
+                <option>Coordinador</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="saveUserBtn">Guardar Usuario</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+            
+
+            <!-- #/ container -->
+        </div>
+
+
+
+
+
+
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                // Obtener todas las filas de la tabla
+                const rows = document.querySelectorAll('tbody tr');
+        
+                rows.forEach(row => {
+                    const statusCell = row.querySelector('td:nth-child(3)'); // Celda de estado
+                    const actionsCell = row.querySelector('td:nth-child(4)'); // Celda de acciones
+        
+                    // Cambiar acciones según el estado
+                    if (statusCell.textContent.includes("Activo")) {
+                        actionsCell.innerHTML = `
+                            <a href="#" class="view" title="Ver usuario" data-toggle="tooltip" data-original-title="Ver">
+                                <i class="material-icons">visibility</i>
+                            </a>
+                            <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip" data-original-title="Editar">
+                                <i class="material-icons">edit</i>
+                            </a>
+                            <a href="#" class="delete" title="Desactivar" data-toggle="tooltip" data-original-title="Desactivar">
+                                <i class="material-icons">delete</i>
+                            </a>
+                        `;
+                    } else if (statusCell.textContent.includes("Pendiente")) {
+                        actionsCell.innerHTML = `
+                            <a href="#" class="approve" title="Reenviar invitación" data-toggle="tooltip" data-original-title="Reenviar invitación">
+                                <i class="material-icons">mail</i>
+                            </a>
+                            <a href="#" class="reject" title="Cancelar invitación" data-toggle="tooltip" data-original-title="Cancelar invitacion">
+                                <i class="material-icons">cancel</i>
+                            </a>
+                        `;
+                    }
+                });
+            });
+
+
+
+
+
+            document.getElementById('saveUserBtn').addEventListener('click', async function () {
+  // Captura los datos del formulario
+  const username = document.getElementById('username').value;
+  const lastnames = document.getElementById('lastnames').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const userType = document.getElementById('usertype').value;
+
+  // Validar que los campos requeridos estén completos
+  if (!username || !lastnames || !email || !password || !userType) {
+    alert('Por favor, completa todos los campos.');
+    return;
+  }
+
+  // Crear el cuerpo de la solicitud
+  const data = {
+    names: username,
+    lastName: lastnames,
+    email: email,
+    password: password,
+    userType: userType
+  };
+
+  try {
+    // Hacer la solicitud POST al backend
+    const response = await fetch('http://127.0.0.1:3000/usuarios/crear', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    // Procesar la respuesta
+    if (response.ok) {
+      const result = await response.json();
+      alert('Usuario agregado exitosamente');
+      // Aquí podrías recargar la lista de usuarios o limpiar el formulario
+      $('#addUserModal').modal('hide');
+    } else {
+      const errorData = await response.json();
+      alert('Error al agregar el usuario: ' + errorData.error);
+    }
+  } catch (error) {
+    console.error('Error al realizar la solicitud:', error);
+    alert('Ocurrió un error al tratar de guardar el usuario.');
+  }
+});
+
+
+
+
+
+            
+            // Script para obtener usuarios en la tabla
+            
+               // Función para obtener usuarios del servidor
+    function obtenerUsuarios() {
+        fetch('http://localhost:3000/usuarios', {mode: "cors"}) // Llama al backend para obtener los usuarios
+            .then(response => response.json()) // Convierte la respuesta a JSON
+            .then(data => {
+                // Llamar a la función que rellena la tabla con los datos
+                rellenarTablaUsuarios(data);
+            })
+            .catch(error => console.error('Error al obtener los usuarios:', error));
+    }
+
+   // Función para rellenar la tabla con los usuarios obtenidos
+function rellenarTablaUsuarios(usuarios) {
+    const tbody = document.getElementById('tabla-usuarios');
+    tbody.innerHTML = ''; // Limpia cualquier dato anterior
+
+    usuarios.forEach(usuario => {
+        // Crear una fila de la tabla
+        const fila = document.createElement('tr');
+
+        // Crear las celdas para cada columna
+        const nombreCelda = document.createElement('td');
+        nombreCelda.innerHTML = `<img src="./images/avatar/4.jpg" class="rounded-circle mr-3" alt=""> ${usuario.names + " " + usuario.lastName}`;
+
+        const emailCelda = document.createElement('td');
+        emailCelda.textContent = usuario.email;
+
+        const rolCelda = document.createElement('td');
+        rolCelda.textContent = usuario.userType;
+
+        const estadoCelda = document.createElement('td');
+        let estadoIcono;
+        if (usuario.status === 'Activo') {
+            estadoIcono = '<i class="fa fa-circle-o text-success mr-2"></i> Activo';
+        } else if (usuario.status === 'Inactivo') {
+            estadoIcono = '<i class="fa fa-circle-o text-warning mr-2"></i> Inactivo';
+        } else if (usuario.status === 'Pendiente') {
+            estadoIcono = '<i class="fa fa-circle-o text-info mr-2"></i> Pendiente';
+        }
+        estadoCelda.innerHTML = estadoIcono;
+
+        // Crear celda de acciones con botones
+        const accionesCelda = document.createElement('td');
+        let accionesHTML;
+        if (usuario.status === 'Activo') {
+            accionesHTML = `
+                <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip">
+                    <i class="material-icons">edit</i>
+                </a>
+                <a href="#" class="delete" title="Desactivar usuario" data-toggle="tooltip">
+                    <i class="material-icons">block</i>
+                </a>
+            `;
+        } else if (usuario.status === 'Inactivo') {
+            accionesHTML = `
+                <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip">
+                    <i class="material-icons">edit</i>
+                </a>
+                <a href="#" class="delete" title="Activar usuario" data-toggle="tooltip">
+                    <i class="material-icons">check</i>
+                </a>
+            `;
+        } else if (usuario.status === 'Pendiente') {
+            accionesHTML = `
+                <a href="#" class="resend" title="Reenviar invitación" data-toggle="tooltip">
+                    <i class="material-icons">email</i>
+                </a>
+                <a href="#" class="cancel" title="Cancelar invitación" data-toggle="tooltip">
+                    <i class="material-icons">cancel</i>
+                </a>
+            `;
+        }
+
+        accionesCelda.innerHTML = accionesHTML;
+
+        // Agregar celdas a la fila
+        fila.appendChild(nombreCelda);
+        fila.appendChild(emailCelda);
+        fila.appendChild(rolCelda);
+        fila.appendChild(estadoCelda);
+        fila.appendChild(accionesCelda);
+
+        // Agregar la fila al tbody de la tabla
+        tbody.appendChild(fila);
+    });
+}
+
+
+    // Llamar la función para obtener y mostrar los usuarios cuando la página cargue
+    document.addEventListener('DOMContentLoaded', obtenerUsuarios);
+
+
+        </script>
+        
+
+
+
+
+
+
+            <!-- #/ container -->
+        </div>
+        <!--**********************************
+            Content body end
+        ***********************************-->
+
+
+        <!--**********************************
+            Footer start
+        ***********************************-->
+        <div class="footer">
+            <div class="copyright">
+                <p>Copyright &copy; Designed & Developed by <a href="https://themeforest.net/user/quixlab">Quixlab</a> 2018</p>
+            </div>
+        </div>
+        <!--**********************************
+            Footer end
+        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="plugins/common/common.min.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/settings.js"></script>
+    <script src="js/gleek.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+
+</body>
+
+</html>
