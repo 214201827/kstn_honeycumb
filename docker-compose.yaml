@@ -43,7 +43,7 @@ services:
     volumes:
       - ./db/mariadb-image-docker-init.sql:/docker-entrypoint-initdb.d/mariadb-image-docker-init.sql
       - ./db-data:/var/lib/mysql
-      - ./healthcheck.sh:/healthcheck.sh
+      - ./db/healthcheck.sh:/healthcheck.sh
     networks:
       - honeycumb-network
     healthcheck:
@@ -64,7 +64,7 @@ services:
     volumes:
       - ./node/backups:/backups  # Directorio local para guardar los respaldos
       - ./db-data:/var/lib/mysql
-      - ./backup-day.sh:/backup-day.sh
+#      - ./backup-day.sh:/backup-day.sh
       - ./backup.sh:/backup.sh
     entrypoint: ["/bin/bash", "/backup-day.sh"]
     depends_on:
