@@ -17,7 +17,6 @@ services:
       dockerfile: Dockerfile
     container_name: honeycumb-back
     environment:
-      - JWT_SECRET={$JWT_SECRET}
       - DB_HOST=db
       - DB_USER=keystone
       - DB_PASSWORD=keystone
@@ -43,11 +42,10 @@ services:
     volumes:
       - ./db/mariadb-image-docker-init.sql:/docker-entrypoint-initdb.d/mariadb-image-docker-init.sql
       - ./db-data:/var/lib/mysql
-      - ./db/healthcheck.sh:/healthcheck.sh
     networks:
       - honeycumb-network
     healthcheck:
-      test: ["CMD", "./healthcheck.sh"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 30s
       timeout: 10s
       retries: 5
@@ -64,7 +62,8 @@ services:
     volumes:
       - ./node/backups:/backups  # Directorio local para guardar los respaldos
       - ./db-data:/var/lib/mysql
-#      - ./backup-day.sh:/backup-day.sh
+      - ./backup-day.sh:/backup-day.sh
+      - ./db/healthcheck.sh:/healthcheck.sh
       - ./backup.sh:/backup.sh
     entrypoint: ["/bin/bash", "/backup-day.sh"]
     depends_on:
