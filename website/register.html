@@ -5,34 +5,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Keystone Honeycumb - Registro de cuenta adminsitrador</title>
-    <!-- Favicon icon -->
+    <title>Keystone Honeycumb - Registro de cuenta administrador</title>
     <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="css/style.css" rel="stylesheet">
-    
 </head>
 
 <body class="h-100">
-    
-    <!--*******************
-        Preloader start
-    ********************-->
-    <div id="preloader">
-        <div class="loader">
-            <svg class="circular" viewBox="25 25 50 50">
-                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
-            </svg>
-        </div>
-    </div>
-    <!--*******************
-        Preloader end
-    ********************-->
-
-    
-
-
-
     <div class="login-form-bg h-100">
         <div class="container h-100">
             <div class="row justify-content-center h-100">
@@ -49,7 +27,10 @@
                                 </div>
                                 <form id="registroForm" class="mt-5 mb-5 login-input">
                                     <div class="form-group">
-                                        <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
+                                        <input type="text" class="form-control" id="nombres" placeholder="Nombre" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" required>
                                     </div>
                                     <div class="form-group">
                                         <input type="email" class="form-control" id="email" placeholder="Email" required>
@@ -59,6 +40,7 @@
                                     </div>
                                     <button class="btn login-form__btn submit w-100" type="submit">Registrarse</button>  
                                 </form>
+                                <div id="registroMessage" class="text-center mt-3"></div>
                             </div>
                         </div>
                     </div>
@@ -66,25 +48,48 @@
             </div>
         </div>
     </div>
-    
-    
 
-    
-
-    <!--**********************************
-        Scripts
-    ***********************************-->
-    <script src="https://apis.google.com/js/platform.js" async defer></script> <!-- Google botón -->
+    <!-- Scripts -->
     <script src="plugins/common/common.min.js"></script>
     <script src="js/custom.min.js"></script>
     <script src="js/settings.js"></script>
     <script src="js/gleek.js"></script>
     <script src="js/styleSwitcher.js"></script>
-    <script src="../node/registro.js"></script>
+    
+    <script>
+        document.getElementById('registroForm').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            // Capturar los valores del formulario
+            const names = document.getElementById('nombres').value;
+            const lastName = document.getElementById('apellidos').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const userType = 'Administrador'; // Puedes ajustar el tipo de usuario según corresponda
+
+            try {
+                // Realizar la solicitud POST al backend
+                const response = await fetch('http://127.0.0.1:3000/usuarios/crear', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ names, lastName, email, password, userType })
+                });
+
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Redirigir a login.html si el registro es exitoso
+                    window.location.href = 'login.html';
+                } else {
+                    document.getElementById('registroMessage').innerHTML = `<p class="text-danger">${result.error || 'Error en el registro'}</p>`;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('registroMessage').innerHTML = '<p class="text-danger">Error al conectar con el servidor</p>';
+            }
+        });
+    </script>
 </body>
 </html>
-
-
-
-
-
