@@ -93,7 +93,7 @@
     
             if (response.ok) {
                 localStorage.setItem('token', result.token);
-                alert('Inicio de sesión exitoso');
+                window.location.href = "/home";
                 // Redirige o realiza otra acción después del login
             } else {
                 const errorMessage = document.getElementById('error-message');

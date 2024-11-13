@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6 text-center">
+        <h1>Bienvenido</h1>
+        <p>Seleccione su rol para acceder al dashboard correspondiente.</p>
+
+        <!-- Selección de roles -->
+        <select id="roleSelector" class="form-control mb-3">
+          <option disabled selected>Seleccione su rol</option>
+        </select>
+
+        <button id="enterDashboard" class="btn btn-primary">Ingresar al Dashboard</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Obtener el token almacenado
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        window.location.href = "/login"; // Redirigir a login si no hay token
+        return;
+      }
+
+      // Función para obtener los roles del usuario
+      fetch('/api/obtenerRolesUsuario', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      })
+      .then(response => {
+        if (!response.ok) throw new Error("Error al obtener roles");
+        return response.json();
+      })
+      .then(roles => {
+        const roleSelector = document.getElementById('roleSelector');
+        roles.forEach(role => {
+          const option = document.createElement('option');
+          option.value = role;
+          option.textContent = role;
+          roleSelector.appendChild(option);
+        });
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Error al obtener roles. Intente nuevamente.");
+      });
+
+      // Redirigir al dashboard basado en el rol seleccionado
+      document.getElementById('enterDashboard').addEventListener('click', () => {
+        const selectedRole = document.getElementById('roleSelector').value;
+        if (!selectedRole) {
+          alert("Seleccione un rol.");
+          return;
+        }
+
+        // Guardar el rol seleccionado en localStorage
+        localStorage.setItem('userRole', selectedRole);
+
+        // Redirigir al dashboard correspondiente
+        switch (selectedRole) {
+          case 'Admin':
+            window.location.href = "dashboard_admin";
+            break;
+          case 'Coordinador':
+            window.location.href = "dashboard_coord";
+            break;
+          case 'Profesor':
+            window.location.href = "dashboard_teacher";
+            break;
+          default:
+            alert("Rol no válido");
+        }
+      });
+    });
+  </script>
+</body>
+</html>

@@ -137,7 +137,7 @@
                     </li>
                     <li>
                         <a href="coord_teachers.html" aria-expanded="false">
-                            <i class="fa fa-book menu-icon"></i><span class="nav-text">Maestros</span>
+                            <i class="fa fa-users menu-icon"></i><span class="nav-text">Maestros</span>
                         </a>
                     </li>
                     <li>
@@ -153,12 +153,17 @@
                         </a>
                     </li>
                             
-                                                  
+                            
+                        
         
                         </li>
         
                     </li>
-                                                          
+        
+        
+                    
+                    
+        
                 </ul>
             </div>
         </div>
@@ -220,8 +225,8 @@
                 </button>
             </div>
             
-            <!-- Modal para agregar usuario -->
-<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="true">
+            <!-- Modal para asignar usuario -->
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="assignUserModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -233,30 +238,12 @@
         <div class="modal-body">
           <!-- Formulario para agregar un nuevo usuario -->
           <form id="addUserForm">
-            <div class="form-group">
-              <label for="username">Nombre(s)</label>
-              <input type="text" class="form-control" id="username" placeholder="Nombre(s)" required>
-            </div>
-            <div class="form-group">
-              <label for="lastnames">Apellidos</label>
-              <input type="text" class="form-control" id="lastnames" placeholder="Apellidos(s)" required>
-            </div>
+            
             <div class="form-group">
               <label for="email">Correo electrónico</label>
               <input type="email" class="form-control" id="email" placeholder="Ingresa correo electrónico" required>
             </div>
-            <div class="form-group">
-              <label for="password">Contraseña</label>
-              <input type="password" class="form-control" id="password" placeholder="Ingresa la contraseña" required>
-            </div>
-            <div class="form-group">
-              <label for="usertype">Tipo de usuario</label>
-              <select class="form-control" id="usertype" required>
-                <option>Administrador</option>
-                <option>Profesor</option>
-                <option>Coordinador</option>
-              </select>
-            </div>
+            
           </form>
         </div>
         <div class="modal-footer">
