@@ -91,16 +91,14 @@ exports.desactivarUsuario = (req, res) => {
 
 // Login con usuario y contraseña
 
-// Iniciar sesión
 exports.loginUsuario = (req, res) => {
   const { email, password } = req.body;
+  const userAgent = req.headers['user-agent'];
 
-  // Validar campos requeridos
   if (!email || !password) {
     return res.status(400).json({ error: 'Email y contraseña son requeridos' });
   }
 
-  // Buscar el usuario por email
   const query = `SELECT * FROM usuarios WHERE email = ? AND status = 'Activo'`;
 
   db.query(query, [email], async (err, results) => {
@@ -114,28 +112,48 @@ exports.loginUsuario = (req, res) => {
     }
 
     const usuario = results[0];
-
-    // Comparar la contraseña
     const validPassword = await bcrypt.compare(password, usuario.password_hash);
 
     if (!validPassword) {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
-    // Generar el token JWT
     const token = jwt.sign(
-      {
-        userId: usuario.userId,
-        email: usuario.email,
-        userType: usuario.userType,
-      },
+      { userId: usuario.userId, email: usuario.email, userType: usuario.userType },
       process.env.JWT_SECRET || 'tu_clave_secreta_super_segura',
       { expiresIn: '1h' }
     );
 
-    res.status(200).json({
-      message: 'Inicio de sesión exitoso',
-      token,
-    });
+
+    // Consulta para obtener el userId
+const queryUserIdBd = "SELECT obtenerUserIdPorEmail(?)";
+
+db.query(queryUserIdBd, [usuario.email], (err, results) => {
+  if (err) {
+    console.error('Error de consulta:', err);
+    return res.status(500).json({ error: 'Error de consulta.' });
+  }
+
+  // Asegúrate de que se obtuvo un resultado
+  if (results.length === 0) {
+    return res.status(404).json({ error: 'Usuario no encontrado' });
+  }
+
+  // Extraer el userId del resultado
+  const userId = results[0].userId;
+
+  // Ahora usa el userId para insertar la sesión
+  const insertSessionQuery = "INSERT INTO sesiones (userId, token, userAgent) VALUES (?, ?, ?)";
+  db.query(insertSessionQuery, [userId, token, userAgent], (err) => {
+    if (err) {
+      console.error('Error al almacenar la sesión:', err);
+      return res.status(500).json({ error: 'Error al almacenar la sesión' });
+    }
+
+    // Responder con éxito
+    res.status(200).json({ message: 'Inicio de sesión exitoso', token });
+  });
+});
+
   });
 };
