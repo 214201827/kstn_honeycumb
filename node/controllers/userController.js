@@ -143,9 +143,10 @@ db.query(queryUserIdBd, [usuario.email], (err, results) => {
   const userId = results[0].userId;
 
   // Ahora usa el userId para insertar la sesión
-  const insertSessionQuery = "INSERT INTO sesiones (userId, token, userAgent) VALUES (?, ?, ?)";
+  const insertSessionQuery = "INSERT INTO sessions (usuario, token, userAgent) VALUES (?, ?, ?)";
   db.query(insertSessionQuery, [userId, token, userAgent], (err) => {
     if (err) {
+      console.log(userId);
       console.error('Error al almacenar la sesión:', err);
       return res.status(500).json({ error: 'Error al almacenar la sesión' });
     }
