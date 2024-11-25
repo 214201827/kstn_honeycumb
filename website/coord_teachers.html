@@ -203,8 +203,6 @@
                                             <tr>
                                                 <th>Nombre</th>
                                                 <th>Email</th>
-                                                <th>Rol</th>
-                                                <th>Estado</th>
                                                 <th>Acciones</th>
                                             </tr>
                                         </thead>
@@ -277,23 +275,8 @@
                     // Cambiar acciones según el estado
                     if (statusCell.textContent.includes("Activo")) {
                         actionsCell.innerHTML = `
-                            <a href="#" class="view" title="Ver usuario" data-toggle="tooltip" data-original-title="Ver">
-                                <i class="material-icons">visibility</i>
-                            </a>
-                            <a href="#" class="edit" title="Editar usuario" data-toggle="tooltip" data-original-title="Editar">
-                                <i class="material-icons">edit</i>
-                            </a>
                             <a href="#" class="delete" title="Desactivar" data-toggle="tooltip" data-original-title="Desactivar">
                                 <i class="material-icons">delete</i>
-                            </a>
-                        `;
-                    } else if (statusCell.textContent.includes("Pendiente")) {
-                        actionsCell.innerHTML = `
-                            <a href="#" class="approve" title="Reenviar invitación" data-toggle="tooltip" data-original-title="Reenviar invitación">
-                                <i class="material-icons">mail</i>
-                            </a>
-                            <a href="#" class="reject" title="Cancelar invitación" data-toggle="tooltip" data-original-title="Cancelar invitacion">
-                                <i class="material-icons">cancel</i>
                             </a>
                         `;
                     }
@@ -305,53 +288,58 @@
 
 
             document.getElementById('saveUserBtn').addEventListener('click', async function () {
-  // Captura los datos del formulario
-  const username = document.getElementById('username').value;
-  const lastnames = document.getElementById('lastnames').value;
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const userType = document.getElementById('usertype').value;
+    // Obtener los datos del formulario
+    const email = document.getElementById('email').value;
 
-  // Validar que los campos requeridos estén completos
-  if (!username || !lastnames || !email || !password || !userType) {
-    alert('Por favor, completa todos los campos.');
-    return;
-  }
-
-  // Crear el cuerpo de la solicitud
-  const data = {
-    names: username,
-    lastName: lastnames,
-    email: email,
-    password: password,
-    userType: userType
-  };
-
-  try {
-    // Hacer la solicitud POST al backend
-    const response = await fetch('http://127.0.0.1:3000/usuarios/crear', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-    });
-
-    // Procesar la respuesta
-    if (response.ok) {
-      const result = await response.json();
-      alert('Usuario agregado exitosamente');
-      // Aquí podrías recargar la lista de usuarios o limpiar el formulario
-      $('#addUserModal').modal('hide');
-    } else {
-      const errorData = await response.json();
-      alert('Error al agregar el usuario: ' + errorData.error);
+    // Validar que los campos requeridos estén completos
+    if (!email) {
+        alert('Por favor, ingresa el correo electrónico del usuario.');
+        return;
     }
-  } catch (error) {
-    console.error('Error al realizar la solicitud:', error);
-    alert('Ocurrió un error al tratar de guardar el usuario.');
-  }
+
+    try {
+        // Buscar el ID del usuario por su email
+        const userResponse = await fetch(`http://localhost:3000/usuarios/buscar?email=${email}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}` // Token JWT almacenado
+            }
+        });
+
+        if (userResponse.ok) {
+            const userData = await userResponse.json();
+            const userId = userData.userId;
+
+            // Asignar usuario al coordinador
+            const assignResponse = await fetch('http://localhost:3000/asignarUsuario', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}` // Token JWT almacenado
+                },
+                body: JSON.stringify({ userId })
+            });
+
+            if (assignResponse.ok) {
+                alert('Usuario asignado correctamente.');
+                // Puedes refrescar la tabla o cerrar el modal si es necesario
+                $('#addUserModal').modal('hide');
+                obtenerUsuarios(); // Refresca la tabla de usuarios
+            } else {
+                const errorData = await assignResponse.json();
+                alert(`Error: ${errorData.error}`);
+            }
+        } else {
+            alert('No se encontró el usuario con ese correo.');
+        }
+    } catch (error) {
+        console.error('Error al asignar usuario:', error);
+        alert('Ocurrió un error al asignar el usuario.');
+    }
 });
+
+    
 
 
 
@@ -360,18 +348,34 @@
             
             // Script para obtener usuarios en la tabla
             
-               // Función para obtener usuarios del servidor
-    function obtenerUsuarios() {
-        fetch('http://localhost:3000/usuarios', {mode: "cors"}) // Llama al backend para obtener los usuarios
-            .then(response => response.json()) // Convierte la respuesta a JSON
-            .then(data => {
-                // Llamar a la función que rellena la tabla con los datos
-                rellenarTablaUsuarios(data);
-            })
-            .catch(error => console.error('Error al obtener los usuarios:', error));
-    }
+// Función para obtener usuarios del servidor que están a cargo del coordinador
+function obtenerUsuarios() {
+    fetch('http://localhost:3000/usuarios/usuariosCoord', {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${localStorage.getItem('token')}`, // Token JWT almacenado
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error al obtener los usuarios asignados.');
+        }
+        return response.json();
+    })
+    .then(data => {
+        rellenarTablaUsuarios(data);
+    })
+    .catch(error => {
+        console.error('Error al obtener los usuarios:', error);
+        alert('Ocurrió un error al obtener los usuarios.');
+    });
+}
 
-   // Función para rellenar la tabla con los usuarios obtenidos
+
+
+
+// Función para rellenar la tabla con los usuarios obtenidos
 function rellenarTablaUsuarios(usuarios) {
     const tbody = document.getElementById('tabla-usuarios');
     tbody.innerHTML = ''; // Limpia cualquier dato anterior
@@ -382,7 +386,7 @@ function rellenarTablaUsuarios(usuarios) {
 
         // Crear las celdas para cada columna
         const nombreCelda = document.createElement('td');
-        nombreCelda.innerHTML = `<img src="./images/avatar/4.jpg" class="rounded-circle mr-3" alt=""> ${usuario.names + " " + usuario.lastName}`;
+        nombreCelda.innerHTML = `<img src="./images/avatar/4.jpg" class="rounded-circle mr-3" alt=""> ${usuario.names} ${usuario.lastName}`;
 
         const emailCelda = document.createElement('td');
         emailCelda.textContent = usuario.email;
@@ -446,6 +450,8 @@ function rellenarTablaUsuarios(usuarios) {
         tbody.appendChild(fila);
     });
 }
+
+
 
 
     // Llamar la función para obtener y mostrar los usuarios cuando la página cargue

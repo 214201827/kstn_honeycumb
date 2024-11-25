@@ -18,6 +18,93 @@ exports.obtenerUsuarios = (req, res) => {
   });
 };
 
+// Obtener usuarios asignados a un coordinador
+exports.getUsersByCoordinator = async (req, res) => {
+  try {
+      // Obtener y verificar el token JWT
+      const token = req.headers.authorization?.split(' ')[1];
+      if (!token) {
+          return res.status(401).json({ error: 'No se proporcionó un token.' });
+      }
+
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+      const coordinatorId = decoded.userId; // Obtener el ID del coordinador desde el JWT
+
+      if (!coordinatorId) {
+          return res.status(400).json({ error: 'El ID del coordinador es inválido.' });
+      }
+
+      // Consultar usuarios asignados al coordinador
+      const [rows] = await db.query(`
+          SELECT u.userId, u.names, u.lastName, u.email, u.status 
+          FROM usuarios u 
+          WHERE u.coordinador = ?
+      `, [coordinatorId]);
+
+      res.json(rows);
+  } catch (error) {
+      console.error('Error al obtener usuarios asignados:', error);
+      if (error.name === 'JsonWebTokenError') {
+          return res.status(401).json({ error: 'Token inválido.' });
+      }
+      res.status(500).json({ error: 'Error al obtener usuarios asignados.' });
+  }
+};
+
+
+// Función para asignar un maestro a coordinador
+exports.assignUserToCoordinator = async (req, res) => {
+  try {
+      // Verificar y decodificar el token JWT
+      const token = req.headers.authorization?.split(' ')[1]; // Obtener el token del encabezado
+      if (!token) {
+          return res.status(401).json({ error: 'No se proporcionó un token.' });
+      }
+
+      const decoded = jwt.verify(token, process.env.JWT_SECRET); // Decodificar el token
+      const coordinatorId = decoded.userId; // Obtener el userId del coordinador
+
+      const { userId } = req.body; // ID del usuario a asignar
+
+      if (!userId) {
+          return res.status(400).json({ error: 'Faltan datos requeridos.' });
+      }
+
+      // Verificar si el usuario ya tiene coordinador asignado
+      const [existing] = await db.query(`
+          SELECT coordinador FROM usuarios WHERE userId = ?
+      `, [userId]);
+
+      if (existing.length > 0 && existing[0].coordinador) {
+          if (existing[0].coordinador !== coordinatorId) {
+              return res.status(400).json({
+                  error: 'El usuario ya está asignado a otro coordinador.'
+              });
+          } else {
+              return res.status(400).json({
+                  error: 'El usuario ya está asignado a este coordinador.'
+              });
+          }
+      }
+
+      // Asignar el coordinador al usuario
+      await db.query(`
+          UPDATE usuarios SET coordinador = ? WHERE userId = ?
+      `, [coordinatorId, userId]);
+
+      res.json({ success: 'Usuario asignado correctamente.' });
+  } catch (error) {
+      console.error(error);
+      if (error.name === 'JsonWebTokenError') {
+          return res.status(401).json({ error: 'Token inválido.' });
+      }
+      res.status(500).json({ error: 'Error al asignar el usuario.' });
+  }
+};
+
+
+
+
 // Crear un nuevo usuario
 exports.crearUsuario = async (req, res) => {
   const { names, email, password, userType, lastName } = req.body;

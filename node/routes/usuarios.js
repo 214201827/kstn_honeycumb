@@ -16,6 +16,12 @@ router.put('/desactivar', usuariosController.desactivarUsuario);
 // Iniciar sesión
 router.post('/login', usuariosController.loginUsuario);
 
+// Asignar usuario a coordinador
+router.post('/asignarUsuario', usuariosController.assignUserToCoordinator);
+
+// Obtener usuarios asignados a coordinador
+router.get('/usuariosCoord', usuariosController.getUsersByCoordinator);
+
 
 
 

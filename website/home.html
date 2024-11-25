@@ -33,19 +33,16 @@
         return;
       }
 
-      // Función para obtener los roles del usuario
-      fetch('/api/obtenerRolesUsuario', {
-        method: 'GET',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
+      try {
+        // Decodificar el token JWT
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const roles = payload.roles || []; // Asumimos que los roles están en el payload
+
+        if (roles.length === 0) {
+          throw new Error("El token no contiene roles.");
         }
-      })
-      .then(response => {
-        if (!response.ok) throw new Error("Error al obtener roles");
-        return response.json();
-      })
-      .then(roles => {
+
+        // Rellenar el selector de roles
         const roleSelector = document.getElementById('roleSelector');
         roles.forEach(role => {
           const option = document.createElement('option');
@@ -53,11 +50,12 @@
           option.textContent = role;
           roleSelector.appendChild(option);
         });
-      })
-      .catch(error => {
-        console.error(error);
-        alert("Error al obtener roles. Intente nuevamente.");
-      });
+
+      } catch (error) {
+        console.error("Error al procesar el token:", error);
+        alert("Token inválido. Inicia sesión nuevamente.");
+        window.location.href = "/login";
+      }
 
       // Redirigir al dashboard basado en el rol seleccionado
       document.getElementById('enterDashboard').addEventListener('click', () => {
