@@ -44,7 +44,10 @@ CREATE TABLE departments (
     description TEXT,
     headUserId INT UNSIGNED,
     PRIMARY KEY (departmentId),
-    FOREIGN KEY (headUserId) REFERENCES usuarios(userId) ON DELETE SET NULL
+    -- NOTE: legacy FK to `usuarios(userId)` removed.
+    -- The legacy `usuarios` table lives in the old schema. During migration,
+    -- map `headUserId` to the new `users` table in PostgreSQL and add the
+    -- appropriate FK if desired.
 );
 
 -- Grade Levels
@@ -69,7 +72,9 @@ CREATE TABLE studentGrades (
     FOREIGN KEY (studentId) REFERENCES students(studentId) ON DELETE CASCADE,
     FOREIGN KEY (courseId) REFERENCES courses(idCourse) ON DELETE CASCADE,
     FOREIGN KEY (periodId) REFERENCES academicPeriods(periodId) ON DELETE CASCADE,
-    FOREIGN KEY (gradedBy) REFERENCES usuarios(userId) ON DELETE SET NULL
+    -- NOTE: legacy FK to `usuarios(userId)` removed for migration.
+    -- Map `gradedBy` to new `users` (Postgres) during ETL and consider
+    -- adding a FK after migration if you want referential integrity.
 );
 
 -- Attendance
@@ -84,7 +89,8 @@ CREATE TABLE attendance (
     PRIMARY KEY (attendanceId),
     FOREIGN KEY (studentId) REFERENCES students(studentId) ON DELETE CASCADE,
     FOREIGN KEY (courseId) REFERENCES courses(idCourse) ON DELETE CASCADE,
-    FOREIGN KEY (recordedBy) REFERENCES usuarios(userId) ON DELETE SET NULL
+    -- NOTE: legacy FK to `usuarios(userId)` removed for migration.
+    -- Map `recordedBy` to new `users` in Postgres during ETL.
 );
 
 -- Parent/Guardian Information
@@ -146,8 +152,8 @@ CREATE TABLE studentDocuments (
     PRIMARY KEY (documentId),
     FOREIGN KEY (studentId) REFERENCES students(studentId) ON DELETE CASCADE,
     FOREIGN KEY (documentTypeId) REFERENCES documentTypes(documentTypeId) ON DELETE CASCADE,
-    FOREIGN KEY (uploadedBy) REFERENCES usuarios(userId) ON DELETE SET NULL,
-    FOREIGN KEY (verifiedBy) REFERENCES usuarios(userId) ON DELETE SET NULL
+    -- NOTE: legacy FKs to `usuarios(userId)` removed for migration.
+    -- Map `uploadedBy` and `verifiedBy` to the new `users` table during ETL.
 );
 
 -- Add indexes for better performance
