@@ -14,10 +14,15 @@ model User {
   names     String
   lastName  String?
   role      UserRole @default(STAFF)
+  provider  String?  // e.g. "local" or "google"
+  googleId  String?  @unique
+  tenantId  String?  
+  emailVerified Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   // relations
   credentials StudentCredential[] @relation("printedBy")
+  tenant     Tenant? @relation(fields: [tenantId], references: [id])
 }
 
 enum UserRole {
@@ -25,6 +30,7 @@ enum UserRole {
   COORDINATOR
   TEACHER
   STAFF
+  FAMILY
 }
 
 model Student {
@@ -38,12 +44,14 @@ model Student {
   photoUrl     String?
   enrollmentAt DateTime?
   status       StudentStatus @default(ACTIVE)
+  tenantId     String?
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   // relations
   credentials  StudentCredential[]
   grades       StudentGrade[]
   attendance   Attendance[]
+  tenant       Tenant? @relation(fields: [tenantId], references: [id])
 }
 
 enum StudentStatus {
@@ -74,6 +82,54 @@ model Course {
   name      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  tenantId  String?
+  tenant    Tenant? @relation(fields: [tenantId], references: [id])
+}
+
+model Tenant {
+  id        String   @id @default(uuid())
+  name      String
+  domain    String   @unique
+  config    Json?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users     User[]
+  students  Student[]
+  courses   Course[]
+}
+
+enum ActivitySource {
+  CLASSROOM
+  MANUAL
+}
+
+model Activity {
+  id         String   @id @default(uuid())
+  course     Course   @relation(fields: [courseId], references: [id])
+  courseId   String
+  title      String
+  description String?
+  dueDate    DateTime?
+  weight     Float?
+  maxScore   Float?   @default(100)
+  source     ActivitySource @default(MANUAL)
+  externalId String?  // id from Classroom when applicable
+  rubric     Json?
+  attachments String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model ImportJob {
+  id        String   @id @default(uuid())
+  tenantId  String?
+  startedAt DateTime @default(now())
+  finishedAt DateTime?
+  status    String
+  details   Json?
+
+  tenant    Tenant? @relation(fields: [tenantId], references: [id])
 }
 
 model AcademicPeriod {

@@ -1,0 +1,25 @@
+// Prisma schema for the legacy MariaDB "alumnos" database.
+// This file is intentionally minimal: the real tables should be introspected
+// against the MariaDB instance (Prisma introspect) and the models refined.
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/alumnos-client"
+}
+
+datasource alumnos {
+  provider = "mysql" // MariaDB-compatible; use "mysql" for Prisma
+  url      = env("ALUMNOS_DATABASE_URL")
+}
+
+// Example placeholder model. Replace by running:
+//   npx prisma db pull --schema=./prisma/alumnos.prisma
+// and then adjust types and mappings.
+model LegacyStudent {
+  id       Int     @id
+  nombre   String?
+  apellido String?
+  correo   String? @map("email")
+
+  @@map("students") // map to the real table name if different
+}
