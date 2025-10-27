@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  names     String
+  lastName  String?
+  role      UserRole @default(STAFF)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  // relations
+  credentials StudentCredential[] @relation("printedBy")
+}
+
+enum UserRole {
+  ADMIN
+  COORDINATOR
+  TEACHER
+  STAFF
+}
+
+model Student {
+  id           String   @id @default(uuid())
+  names        String
+  lastNames    String
+  email        String?  @unique
+  dateOfBirth  DateTime?
+  gender       String?
+  phone        String?
+  photoUrl     String?
+  enrollmentAt DateTime?
+  status       StudentStatus @default(ACTIVE)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  // relations
+  credentials  StudentCredential[]
+  grades       StudentGrade[]
+  attendance   Attendance[]
+}
+
+enum StudentStatus {
+  ACTIVE
+  INACTIVE
+  GRADUATED
+  ON_LEAVE
+}
+
+model StudentCredential {
+  id               String   @id @default(uuid())
+  studentId        String
+  credentialNumber String   @unique
+  issueDate        DateTime
+  expiryDate       DateTime
+  qrSignature      String?
+  qrUrl            String?
+  isActive         Boolean  @default(true)
+  printedById      String?
+  printedAt        DateTime?
+
+  student Student @relation(fields: [studentId], references: [id])
+  printedBy User?  @relation("printedBy", fields: [printedById], references: [id])
+}
+
+model Course {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AcademicPeriod {
+  id        String   @id @default(uuid())
+  name      String
+  startDate DateTime
+  endDate   DateTime
+}
+
+model StudentGrade {
+  id        String   @id @default(uuid())
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  String
+  period    AcademicPeriod @relation(fields: [periodId], references: [id])
+  periodId  String
+  grade     Float
+  comments  String?
+  gradedBy  String?
+  gradedAt  DateTime @default(now())
+}
+
+model Attendance {
+  id        String   @id @default(uuid())
+  student   Student  @relation(fields: [studentId], references: [id])
+  studentId String
+  course    Course   @relation(fields: [courseId], references: [id])
+  courseId  String
+  date      DateTime
+  status    AttendanceStatus
+  notes     String?
+  recordedBy String?
+}
+
+enum AttendanceStatus {
+  PRESENT
+  ABSENT
+  LATE
+  EXCUSED
+}

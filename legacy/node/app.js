@@ -25,9 +25,13 @@ app.use(cors({
 // Rutas
 const usuariosRoutes = require('./routes/usuarios');
 const backupRoutes = require('./routes/backup');
+const credentialsRoutes = require('./routes/credentials');
+const studentsRoutes = require('./routes/students');
 
 app.use('/usuarios', usuariosRoutes);
 app.use('/download-backup', backupRoutes);
+app.use('/credentials', credentialsRoutes);
+app.use('/students', studentsRoutes);
 
 // Iniciar el servidor
 app.listen(port, () => {
