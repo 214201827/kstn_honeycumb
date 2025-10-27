@@ -34,7 +34,10 @@ if (!ALUMNOS_URL) {
   process.exit(1);
 }
 
-const prisma = new PrismaClient();
+const args = process.argv.slice(2);
+const DRY_RUN = args.includes('--dry-run') || args.includes('-n');
+let prisma = null;
+if (!DRY_RUN) prisma = new PrismaClient();
 
 async function findUsuariosTable(conn) {
   const [rows] = await conn.query("SHOW TABLES");
@@ -65,8 +68,8 @@ async function main() {
       process.exit(2);
     }
 
-    console.log('Found users table:', usuariosTable);
-    const [users] = await conn.query(`SELECT * FROM \`${usuariosTable}\``);
+  console.log('Found users table:', usuariosTable);
+  const [users] = await conn.query(`SELECT * FROM \`${usuariosTable}\``);
     console.log(`Found ${users.length} legacy users.`);
 
     const mapping = [];
@@ -88,25 +91,32 @@ async function main() {
       const tempPassword = crypto.randomBytes(8).toString('hex');
       const hashed = await bcrypt.hash(tempPassword, 10);
 
-      // Create user in Postgres using Prisma
-      try {
-        const created = await prisma.user.create({
-          data: {
-            email: rawEmail,
-            password: hashed,
-            names: names || rawEmail,
-            lastName: lastName || null,
-            role: 'STAFF',
-            provider: 'legacy',
-            emailVerified: false
-          }
-        });
+      if (DRY_RUN) {
+        // Simulate creation: generate a predictable UUID for preview
+        const predictedId = crypto.randomUUID ? crypto.randomUUID() : 'dry-' + String(legacyId || crypto.randomBytes(6).toString('hex'));
+        mapping.push({ legacyId, newUserId: predictedId, email: rawEmail, tempPassword, dryRun: true, names, lastName });
+        console.log(`[dry-run] Would import ${rawEmail} -> ${predictedId}`);
+      } else {
+        // Create user in Postgres using Prisma
+        try {
+          const created = await prisma.user.create({
+            data: {
+              email: rawEmail,
+              password: hashed,
+              names: names || rawEmail,
+              lastName: lastName || null,
+              role: 'STAFF',
+              provider: 'legacy',
+              emailVerified: false
+            }
+          });
 
-        mapping.push({ legacyId, newUserId: created.id, email: rawEmail, tempPassword });
-        console.log(`Imported ${rawEmail} -> ${created.id}`);
-      } catch (err) {
-        console.error('Failed to import', rawEmail, err.message || err);
-        mapping.push({ legacyId, newUserId: null, email: rawEmail, error: String(err) });
+          mapping.push({ legacyId, newUserId: created.id, email: rawEmail, tempPassword });
+          console.log(`Imported ${rawEmail} -> ${created.id}`);
+        } catch (err) {
+          console.error('Failed to import', rawEmail, err.message || err);
+          mapping.push({ legacyId, newUserId: null, email: rawEmail, error: String(err) });
+        }
       }
     }
 

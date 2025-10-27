@@ -24,6 +24,12 @@ migrate_usuarios.js
 
      node backend/scripts/migrate_usuarios.js
 
+Dry-run
+-------
+If you want to preview the mapping without creating users in Postgres, run with the `--dry-run` (or `-n`) flag. This will generate `backend/data/legacy_user_map.json` with a predicted `newUserId` and temporary passwords, but it will not modify the Postgres DB.
+
+   node backend/scripts/migrate_usuarios.js --dry-run
+
 Notes
 -----
 - The script tries to find a table named `usuarios` (case-insensitive). If not found it will search for common alternatives and print available tables.
