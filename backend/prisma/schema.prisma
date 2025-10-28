@@ -84,6 +84,10 @@ model Course {
   updatedAt DateTime @updatedAt
   tenantId  String?
   tenant    Tenant? @relation(fields: [tenantId], references: [id])
+  // relations
+  activities   Activity[]
+  studentGrades StudentGrade[]
+  attendance    Attendance[]
 }
 
 model Tenant {
@@ -97,6 +101,7 @@ model Tenant {
   users     User[]
   students  Student[]
   courses   Course[]
+  importJobs ImportJob[]
 }
 
 enum ActivitySource {
@@ -137,6 +142,8 @@ model AcademicPeriod {
   name      String
   startDate DateTime
   endDate   DateTime
+  // relations
+  grades    StudentGrade[]
 }
 
 model StudentGrade {
